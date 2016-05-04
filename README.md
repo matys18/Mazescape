@@ -2,6 +2,8 @@
 
 A 2d maze game where you try to escape the dark.
 
+![Teaser image](teaser.png)
+
 ### MVP
 
 * A maze game with walls and collisions
