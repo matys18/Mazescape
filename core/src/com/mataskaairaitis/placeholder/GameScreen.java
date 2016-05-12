@@ -28,6 +28,7 @@ public class GameScreen implements Screen {
     float width, height;
 
     public GameScreen(final MyGdxGame game) {
+    	
         width = 1280;
         height = 720;
 
@@ -85,7 +86,9 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {}
 
     @Override
-    public void show() {}
+    public void show() {
+    	Gdx.graphics.setContinuousRendering(true);
+    }
 
     @Override
     public void hide() {}
