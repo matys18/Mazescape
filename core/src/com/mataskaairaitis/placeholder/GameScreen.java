@@ -18,6 +18,9 @@ import java.util.Random;
  */
 public class GameScreen implements Screen {
 
+	MyGdxGame game;
+	GameControl control;
+	
     OrthographicCamera camera;
     Box2DDebugRenderer renderer;
     FPSLogger fpsLogger;
@@ -28,6 +31,8 @@ public class GameScreen implements Screen {
     float width, height;
 
     public GameScreen(final MyGdxGame game) {
+    	this.game = game;
+    	control = new GameControl(this);
     	
         width = 1280;
         height = 720;
@@ -88,6 +93,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
     	Gdx.graphics.setContinuousRendering(true);
+    	game.userInput.setReceiver(control);
     }
 
     @Override
