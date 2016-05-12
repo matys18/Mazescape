@@ -17,27 +17,21 @@ import com.badlogic.gdx.physics.box2d.*;
 import java.util.Random;
 
 /**
- * Testgame class.
- * 
- * VERSION 1:
- * Extending the testgame with some more stuff:
- * 1: Sprite, turning the samplepicture texture into a movable sprite
- * 2: Input, moving the sample picture around the window
- * 3: setting the position to the middle of window at start.
- * TODO: organize input better in a separate class, with better
- * logic. Doing an if-statement for each key seems suboptimal.
- * VERSION 2:
- * All input is now handled by UserInput class, which also uses
- * reflection to direct input to methods instead of if-statements.
+ * Main game class. Holds the screens and user input, and passes
+ * itself to all screens so that they may reach each other.
  */
 public class MyGdxGame extends Game {
 
 	GameScreen gameScreen;
+	MenuScreen menuScreen;
+	UserInput userInput;
 
 	@Override
 	public void create () {
-		gameScreen  = new GameScreen(this);
-		this.setScreen(gameScreen);
+		gameScreen = new GameScreen(this);
+		menuScreen = new MenuScreen(this);
+		userInput = new UserInput();
+		this.setScreen(menuScreen);
 	}
 
 	@Override
