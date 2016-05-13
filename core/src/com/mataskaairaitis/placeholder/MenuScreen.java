@@ -8,9 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class MenuScreen extends ParentScreen {
 
-	MyGdxGame game;
-	MenuControl control;
-	
 	SpriteBatch batch;
 	BitmapFont unselectedFont;
 	BitmapFont highlightedFont;
@@ -19,8 +16,8 @@ public class MenuScreen extends ParentScreen {
 	int highlightedItem = 0;
 	
 	public MenuScreen(MyGdxGame game) {
-		this.game = game;
-		control = new MenuControl(this);
+		super(game, MenuControl.class);
+//		control = new MenuControl(this);
 		
 		batch = new SpriteBatch();
 		unselectedFont = new BitmapFont();
@@ -42,8 +39,8 @@ public class MenuScreen extends ParentScreen {
 	
 	@Override
 	public void show() {
+		super.show();
 		Gdx.graphics.setContinuousRendering(false);
-		game.userInput.setReceiver(control);
 	}
 
 	@Override
@@ -57,26 +54,6 @@ public class MenuScreen extends ParentScreen {
 		Item highlight = menuItems[highlightedItem];
 		highlightedFont.draw(batch, highlight.str, highlight.X, highlight.Y);
 		batch.end();
-	}
-	
-	@Override
-	public void resize(int width, int height) {}
-
-	@Override
-	public void pause() {}
-
-	@Override
-	public void resume() {}
-
-	@Override
-	public void hide() {}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	
+	}	
 	
 }
