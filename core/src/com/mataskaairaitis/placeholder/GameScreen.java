@@ -3,7 +3,6 @@ package com.mataskaairaitis.placeholder;
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,7 +15,7 @@ import java.util.Random;
 /**
  * Created by mataskairaitis on 12/05/16.
  */
-public class GameScreen implements Screen {
+public class GameScreen extends ParentScreen {
 
 	MyGdxGame game;
 	GameControl control;
