@@ -2,6 +2,7 @@ package com.mataskaairaitis.placeholder;
 
 import java.lang.reflect.Method;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
@@ -17,17 +18,17 @@ public class UserInput implements InputProcessor {
 	private InputReceiver receiver;
 	
 	/**
-	 * Constructor to hand the class its receiver.
+	 * Constructor that sets current object to main InputProcessor.
 	 * @param receiver
 	 */
-	public UserInput(InputReceiver receiver) {
-		this.receiver = receiver;
+	public UserInput() {
+		Gdx.input.setInputProcessor(this);
 	}
 	/**
-	 * Change the receiver if needed.
+	 * Set and Change the receiver of input.
 	 * @param receiver
 	 */
-	public void changeReceiver(InputReceiver receiver) {
+	public void setReceiver(InputReceiver receiver) {
 		this.receiver = receiver;
 	}
 	

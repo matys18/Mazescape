@@ -2,8 +2,8 @@ package com.mataskaairaitis.placeholder;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,7 +18,7 @@ import java.util.Random;
 /**
  * Created by mataskairaitis on 12/05/16.
  */
-public class GameScreen implements Screen {
+public class GameScreen extends ParentScreen {
 
     OrthographicCamera camera;
     Box2DDebugRenderer renderer;
@@ -27,6 +27,7 @@ public class GameScreen implements Screen {
     PointLight playerLight;
     World world;
     RayHandler rayHandler;
+
     ShapeRenderer shapes;
     float width, height;
 
@@ -34,8 +35,7 @@ public class GameScreen implements Screen {
     float playerLightInterval;
 
     public GameScreen(final MyGdxGame game) {
-        width = 1280;
-        height = 720;
+    	super(game, GameControl.class);
 
         player = new PlayerModel(width * 0.5f, height * 0.5f, 14f, Color.ORANGE);
 
@@ -98,21 +98,11 @@ public class GameScreen implements Screen {
         fpsLogger.log();
     }
 
-
     @Override
-    public void resize(int width, int height) {}
-
-    @Override
-    public void show() {}
-
-    @Override
-    public void hide() {}
-
-    @Override
-    public void pause() {}
-
-    @Override
-    public void resume() {}
+    public void show() {
+    	super.show();
+    	Gdx.graphics.setContinuousRendering(true);
+    }
 
     @Override
     public void dispose() {
