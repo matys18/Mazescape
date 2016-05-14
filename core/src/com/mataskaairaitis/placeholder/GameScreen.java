@@ -37,7 +37,7 @@ public class GameScreen implements Screen {
         width = 1280;
         height = 720;
 
-        player = new PlayerModel(width * 0.5f, height * 0.5f, 10f, Color.YELLOW);
+        player = new PlayerModel(width * 0.5f, height * 0.5f, 14f, Color.ORANGE);
 
         camera = new OrthographicCamera(width, height);
         camera.position.set(player.getX(), player.getY(), 0);
@@ -85,12 +85,12 @@ public class GameScreen implements Screen {
 
         // Color the circle
         shapes.begin(ShapeRenderer.ShapeType.Filled);
-        shapes.setColor(Color.YELLOW);
+        shapes.setColor(player.getColor());
         shapes.circle(player.getX(), player.getY(), player.getRadius());
         shapes.end();
 
         // Box2dlight stuff
-        playerLight.setDistance((float)Math.sin(playerLightInterval) * 10f + 200f);
+        playerLight.setDistance((float)Math.sin(playerLightInterval) * 16f + 300f);
         playerLightInterval  += 0.1f;
         rayHandler.updateAndRender();
 
