@@ -10,7 +10,7 @@ import com.badlogic.gdx.Screen;
  */
 public abstract class ParentScreen implements Screen {
 	
-	MyGdxGame game;
+	Mazescape game;
 	InputReceiver control;
 	float width, height;;
 	
@@ -20,7 +20,7 @@ public abstract class ParentScreen implements Screen {
 	 * @param game
 	 * @param controlClass
 	 */
-	public ParentScreen(MyGdxGame game, Class<?> controlClass) {
+	public ParentScreen(Mazescape game, Class<?> controlClass) {
 		this.game = game;
 		try {
 			control = (InputReceiver)controlClass.getConstructor(getClass())

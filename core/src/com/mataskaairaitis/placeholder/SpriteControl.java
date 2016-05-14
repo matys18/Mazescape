@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
  * Test implementation of InputReceiver on the sprite
- * testclass MyGdxGame.
+ * testclass Mazescape.
  * 
  * @author jarl
  */

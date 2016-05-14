@@ -15,7 +15,7 @@ public class MenuScreen extends ParentScreen {
 	
 	int highlightedItem = 0;
 	
-	public MenuScreen(MyGdxGame game) {
+	public MenuScreen(Mazescape game) {
 		super(game, MenuControl.class);
 //		control = new MenuControl(this);
 		

@@ -20,7 +20,7 @@ import java.util.Random;
  * Main game class. Holds the screens and user input, and passes
  * itself to all screens so that they may reach each other.
  */
-public class MyGdxGame extends Game {
+public class Mazescape extends Game {
 
 	GameScreen gameScreen;
 	MenuScreen menuScreen;

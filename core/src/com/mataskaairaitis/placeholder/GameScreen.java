@@ -13,8 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mataskaairaitis.placeholder.models.PlayerModel;
 
-import java.util.Random;
-
 /**
  * Created by mataskairaitis on 12/05/16.
  */
@@ -34,7 +32,7 @@ public class GameScreen extends ParentScreen {
     PlayerModel player;
     float playerLightInterval;
 
-    public GameScreen(final MyGdxGame game) {
+    public GameScreen(final Mazescape game) {
     	super(game, GameControl.class);
 
         player = new PlayerModel(width * 0.5f, height * 0.5f, 14f, Color.ORANGE);
