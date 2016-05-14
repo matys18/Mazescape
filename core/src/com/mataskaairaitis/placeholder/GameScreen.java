@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.mataskaairaitis.placeholder.models.PlayerModel;
 
 import java.util.Random;
 
@@ -25,15 +27,23 @@ public class GameScreen implements Screen {
     PointLight playerLight;
     World world;
     RayHandler rayHandler;
+    ShapeRenderer shapes;
     float width, height;
+
+    PlayerModel player;
+    float playerLightInterval;
 
     public GameScreen(final MyGdxGame game) {
         width = 1280;
         height = 720;
 
+        player = new PlayerModel(width * 0.5f, height * 0.5f, 10f, Color.YELLOW);
+
         camera = new OrthographicCamera(width, height);
-        camera.position.set(width * 0.5f, height * 0.5f, 0);
+        camera.position.set(player.getX(), player.getY(), 0);
         camera.update();
+
+        shapes = new ShapeRenderer();
 
         world = new World(new Vector2(0, 0), true);
         renderer = new Box2DDebugRenderer();
@@ -41,12 +51,12 @@ public class GameScreen implements Screen {
 
         BodyDef circleDef = new BodyDef();
         circleDef.type = BodyDef.BodyType.DynamicBody;
-        circleDef.position.set(width * 0.5f, height * 0.5f);
+        circleDef.position.set(player.getX(), player.getY());
 
         circleBody = world.createBody(circleDef);
 
         CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(6f);
+        circleShape.setRadius(player.getRadius());
 
         FixtureDef circleFixture = new FixtureDef();
         circleFixture.shape = circleShape;
@@ -60,7 +70,8 @@ public class GameScreen implements Screen {
         rayHandler = new RayHandler(world);
         rayHandler.setCombinedMatrix(camera.combined);
 
-        playerLight = new PointLight(rayHandler, 50000, Color.ORANGE, 100, width / 2, height / 2);
+        playerLight = new PointLight(rayHandler, 50000, Color.ORANGE, 100, player.getX(), player.getY());
+        //playerLightInterval = 0;
     }
 
     @Override
@@ -72,12 +83,19 @@ public class GameScreen implements Screen {
         renderer.render(world, camera.combined);
         world.step(1/60f, 6, 2);
 
-        // Log the fps
-        fpsLogger.log();
+        // Color the circle
+        shapes.begin(ShapeRenderer.ShapeType.Filled);
+        shapes.setColor(Color.YELLOW);
+        shapes.circle(player.getX(), player.getY(), player.getRadius());
+        shapes.end();
 
         // Box2dlight stuff
-        playerLight.setDistance(new Random().nextInt(200));
+        playerLight.setDistance((float)Math.sin(playerLightInterval) * 10f + 200f);
+        playerLightInterval  += 0.1f;
         rayHandler.updateAndRender();
+
+        // Log the fps
+        fpsLogger.log();
     }
 
 
