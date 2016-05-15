@@ -29,8 +29,6 @@ public class GameScreen extends ParentScreen {
     PlayerModel player;
     WallModel wall;
 
-    float playerLightInterval;
-
     public GameScreen(final Mazescape game) {
     	super(game, GameControl.class);
 
@@ -81,7 +79,7 @@ public class GameScreen extends ParentScreen {
         // Apply colors to player and wall objects
         shapes.begin(ShapeRenderer.ShapeType.Filled);
         shapes.setColor(player.getColor());
-        shapes.circle(pos.x /3f, pos.y /3f, player.getRadius());
+        shapes.circle(pos.x, pos.y, player.getRadius());
         shapes.setColor(Color.DARK_GRAY);
         shapes.rect(wallPos.x - wall.getWidth(), wallPos.y - wall.getHeight(), wall.getWidth() * 2, wall.getHeight() * 2f);
         shapes.end();
