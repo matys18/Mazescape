@@ -21,13 +21,9 @@ public class GameScreen extends ParentScreen {
     OrthographicCamera camera;
     Box2DDebugRenderer renderer;
     FPSLogger fpsLogger;
-    Body circleBody;
-    PointLight playerLight;
     World world;
     RayHandler rayHandler;
-
     ShapeRenderer shapes;
-    float width, height;
 
     PlayerModel player;
     float playerLightInterval;
@@ -35,41 +31,30 @@ public class GameScreen extends ParentScreen {
     public GameScreen(final Mazescape game) {
     	super(game, GameControl.class);
 
-        player = new PlayerModel(width * 0.5f, height * 0.5f, 14f, Color.ORANGE);
-
+        // Create the camera and set it's position
         camera = new OrthographicCamera(width, height);
-        camera.position.set(player.getX(), player.getY(), 0);
+        camera.position.set(width * 0.5f, height * 0.5f, 0);
         camera.update();
 
+        // Create an OpenGL shape renderer and attach the camera to it
         shapes = new ShapeRenderer();
+        shapes.setProjectionMatrix(camera.combined);
 
-        world = new World(new Vector2(0, 0), true);
+        // Fps logger and box2d renderer
         renderer = new Box2DDebugRenderer();
         fpsLogger = new FPSLogger();
 
-        BodyDef circleDef = new BodyDef();
-        circleDef.type = BodyDef.BodyType.DynamicBody;
-        circleDef.position.set(player.getX(), player.getY());
-
-        circleBody = world.createBody(circleDef);
-
-        CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(player.getRadius());
-
-        FixtureDef circleFixture = new FixtureDef();
-        circleFixture.shape = circleShape;
-        circleFixture.density = 0.4f;
-        circleFixture.friction = 0.2f;
-        circleFixture.restitution = 0.8f;
-
-        circleBody.createFixture(circleFixture);
+        // Create the box2d world
+        world = new World(new Vector2(0, 0), true);
 
         // Lighting settings
         rayHandler = new RayHandler(world);
         rayHandler.setCombinedMatrix(camera.combined);
 
-        playerLight = new PointLight(rayHandler, 50000, Color.ORANGE, 100, player.getX(), player.getY());
-        //playerLightInterval = 0;
+        // Create a player instance
+        player = new PlayerModel(width * 0.5f, height * 0.5f, 6f, world, rayHandler, Color.ORANGE);
+
+        player.setVelocity(new Vector2(0, 40));
     }
 
     @Override
@@ -77,19 +62,26 @@ public class GameScreen extends ParentScreen {
         Gdx.gl.glClearColor(0, 0, 0, 1); // Sets background to black
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 
-        // Render the world
+        Vector2 pos = player.getPosition();
+
+        //camera.position.set(pos.x, pos.y, 0);
+        //camera.update();
+
+        // Render the box2d world
         renderer.render(world, camera.combined);
         world.step(1/60f, 6, 2);
 
-        // Color the circle
+        // Aply colors to player and wall objects
         shapes.begin(ShapeRenderer.ShapeType.Filled);
         shapes.setColor(player.getColor());
-        shapes.circle(player.getX(), player.getY(), player.getRadius());
+        shapes.circle(pos.x, pos.y, 6f);
+        shapes.setColor(player.getColor());
+        shapes.circle(pos.x, pos.y, 6f);
         shapes.end();
 
-        // Box2dlight stuff
-        playerLight.setDistance((float)Math.sin(playerLightInterval) * 16f + 300f);
-        playerLightInterval  += 0.1f;
+        // Player lighting
+        player.updateLightDistance();
+        player.updateLightPosition();
         rayHandler.updateAndRender();
 
         // Log the fps
