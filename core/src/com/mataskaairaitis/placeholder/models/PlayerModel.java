@@ -52,6 +52,10 @@ public class PlayerModel {
     public void setVelocity(Vector2 v) {
         circleBody.setLinearVelocity(v.x, v.y);
     }
+    
+    public Vector2 getVelocity() {
+    	return circleBody.getLinearVelocity();
+    }
 
     public Vector2 getPosition() {
         return circleBody.getPosition();
