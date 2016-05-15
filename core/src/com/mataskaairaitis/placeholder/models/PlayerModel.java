@@ -13,15 +13,14 @@ import com.badlogic.gdx.physics.box2d.*;
  */
 public class PlayerModel {
 
-
     Body circleBody;
     PointLight playerLight;
     float playerLightInterval;
     Color color;
 
-    public PlayerModel(float x, float y, float radius, World world, RayHandler rayHandler, Color color) {
+    public PlayerModel(float x, float y, float radius, World world, RayHandler rayHandler, Color col) {
         // Set the player color
-        this.color = color;
+        color = col;
 
         // Create a body definition for the character
         BodyDef circleDef = new BodyDef();
@@ -38,7 +37,7 @@ public class PlayerModel {
         // Create a fixture with physical properties for player body
         FixtureDef circleFixture = new FixtureDef();
         circleFixture.shape = circleShape;
-        circleFixture.density = 0.4f;
+        circleFixture.density = 0f;
         circleFixture.friction = 0f;
         circleFixture.restitution = 0.1f;
 
@@ -46,7 +45,8 @@ public class PlayerModel {
         circleBody.createFixture(circleFixture);
 
         // Point Light for the player
-        playerLight = new PointLight(rayHandler, 50000, Color.ORANGE, 100, x, y);
+        playerLight = new PointLight(rayHandler, 5000, color, 100f, x, y);
+        playerLight.setSoftnessLength(100);
     }
 
     public void setVelocity(Vector2 v) {
@@ -67,14 +67,13 @@ public class PlayerModel {
         playerLight.setDistance((float)Math.sin(playerLightInterval) * 5f + 100f);
     }
 
-    /*
     public float getRadius() {
-        return circleBody.
+        return circleBody.getFixtureList().get(0).getShape().getRadius();
     }
 
     public void setRadius(float radius) {
-        this.radius = radius;
-    } */
+        circleBody.getFixtureList().get(0).getShape().setRadius(radius);
+    }
 
     public Color getColor() {
         return color;

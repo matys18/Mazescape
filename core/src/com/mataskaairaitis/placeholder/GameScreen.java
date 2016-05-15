@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mataskaairaitis.placeholder.models.PlayerModel;
+import com.mataskaairaitis.placeholder.models.WallModel;
 
 /**
  * Created by mataskairaitis on 12/05/16.
@@ -26,6 +27,8 @@ public class GameScreen extends ParentScreen {
     ShapeRenderer shapes;
 
     PlayerModel player;
+    WallModel wall;
+
     float playerLightInterval;
 
     public GameScreen(final Mazescape game) {
@@ -54,7 +57,9 @@ public class GameScreen extends ParentScreen {
         // Create a player instance
         player = new PlayerModel(width * 0.5f, height * 0.5f, 6f, world, rayHandler, Color.ORANGE);
 
-        player.setVelocity(new Vector2(0, 40));
+        wall = new WallModel(20f, height * 0.5f, 10f, 100f, world, rayHandler);
+
+        //player.setVelocity(new Vector2(-60, 0));
     }
 
     @Override
@@ -64,19 +69,21 @@ public class GameScreen extends ParentScreen {
 
         Vector2 pos = player.getPosition();
 
-        //camera.position.set(pos.x, pos.y, 0);
-        //camera.update();
+        Vector2 wallPos = wall.getPosition();
 
         // Render the box2d world
         renderer.render(world, camera.combined);
         world.step(1/60f, 6, 2);
 
-        // Aply colors to player and wall objects
+        //camera.position.set(pos.x , pos.y, 0);
+        //camera.update();
+
+        // Apply colors to player and wall objects
         shapes.begin(ShapeRenderer.ShapeType.Filled);
         shapes.setColor(player.getColor());
-        shapes.circle(pos.x, pos.y, 6f);
-        shapes.setColor(player.getColor());
-        shapes.circle(pos.x, pos.y, 6f);
+        shapes.circle(pos.x /3f, pos.y /3f, player.getRadius());
+        shapes.setColor(Color.DARK_GRAY);
+        shapes.rect(wallPos.x - wall.getWidth(), wallPos.y - wall.getHeight(), wall.getWidth() * 2, wall.getHeight() * 2f);
         shapes.end();
 
         // Player lighting
@@ -97,6 +104,8 @@ public class GameScreen extends ParentScreen {
     @Override
     public void dispose() {
         world.dispose();
+        renderer.dispose();
+        rayHandler.dispose();
     }
 
 }
