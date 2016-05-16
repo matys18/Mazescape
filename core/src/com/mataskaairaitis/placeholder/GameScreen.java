@@ -33,7 +33,7 @@ public class GameScreen extends ParentScreen {
     	super(game, GameControl.class);
 
         // Create the camera and set it's position
-        camera = new OrthographicCamera(width, height);
+        camera = new OrthographicCamera(width * 0.2f, height * 0.2f);
         camera.position.set(width * 0.5f, height * 0.5f, 0);
         camera.update();
 
@@ -55,7 +55,7 @@ public class GameScreen extends ParentScreen {
         // Create a player instance
         player = new PlayerModel(width * 0.5f, height * 0.5f, 6f, world, rayHandler, Color.ORANGE);
 
-        wall = new WallModel(20f, height * 0.5f, 10f, 100f, world, rayHandler);
+        wall = new WallModel(width * 0.5f - 30f, height * 0.5f, 10f, 100f, world, rayHandler);
 
         //player.setVelocity(new Vector2(-60, 0));
     }
@@ -69,17 +69,18 @@ public class GameScreen extends ParentScreen {
 
         Vector2 wallPos = wall.getPosition();
 
+        camera.position.set(pos.x, pos.y, 0);
+        camera.update();
+
         // Render the box2d world
         renderer.render(world, camera.combined);
         world.step(1/60f, 6, 2);
 
-        //camera.position.set(pos.x , pos.y, 0);
-        //camera.update();
-
         // Apply colors to player and wall objects
+        shapes.setProjectionMatrix(camera.combined);
         shapes.begin(ShapeRenderer.ShapeType.Filled);
         shapes.setColor(player.getColor());
-        shapes.circle(pos.x, pos.y, player.getRadius());
+        shapes.circle(pos.x, pos.y, player.getRadius(), 1500);
         shapes.setColor(Color.DARK_GRAY);
         shapes.rect(wallPos.x - wall.getWidth(), wallPos.y - wall.getHeight(), wall.getWidth() * 2, wall.getHeight() * 2f);
         shapes.end();
@@ -87,6 +88,7 @@ public class GameScreen extends ParentScreen {
         // Player lighting
         player.updateLightDistance();
         player.updateLightPosition();
+        rayHandler.setCombinedMatrix(camera.combined);
         rayHandler.updateAndRender();
 
         // Log the fps
