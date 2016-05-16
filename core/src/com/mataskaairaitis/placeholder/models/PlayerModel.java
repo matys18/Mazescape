@@ -39,14 +39,14 @@ public class PlayerModel {
         circleFixture.shape = circleShape;
         circleFixture.density = 0f;
         circleFixture.friction = 0f;
-        circleFixture.restitution = 0.1f;
+        circleFixture.restitution = 0.05f;
 
         // Attach the fixture to the player body
         circleBody.createFixture(circleFixture);
 
         // Point Light for the player
         playerLight = new PointLight(rayHandler, 5000, color, 100f, x, y);
-        playerLight.setSoftnessLength(100);
+        playerLight.setSoftnessLength(20);
     }
 
     public void setVelocity(Vector2 v) {
