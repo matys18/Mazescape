@@ -23,6 +23,14 @@ public class MenuControl implements InputReceiver {
 	}
 	
 	public void keyPressedSpace() {
+		activateKey();	
+	}
+	
+	public void keyPressedEnter() {
+		activateKey();
+	}
+
+	private void activateKey() {
 		switch (screen.highlightedItem) {
 		case 0:
 			screen.game.setScreen(screen.game.gameScreen);
@@ -31,7 +39,7 @@ public class MenuControl implements InputReceiver {
 			break;
 		case 2:
 			Gdx.app.exit();
-		}	
+		}
 	}
-
+	
 }
