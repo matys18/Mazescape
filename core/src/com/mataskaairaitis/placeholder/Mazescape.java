@@ -31,7 +31,7 @@ public class Mazescape extends Game {
 		gameScreen = new GameScreen(this);
 		menuScreen = new MenuScreen(this);
 		userInput = new UserInput();
-		this.setScreen(gameScreen);
+		this.setScreen(menuScreen);
 	}
 
 	@Override
