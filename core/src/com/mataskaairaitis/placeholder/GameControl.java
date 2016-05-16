@@ -131,6 +131,8 @@ public class GameControl implements InputReceiver {
 	
 	public void keyPressedEscape() {
 		screen.game.setScreen(screen.game.menuScreen);
+		MenuControl menu = (MenuControl)screen.game.menuScreen.control;
+		menu.switchColor(menu.highlight, 1);
 	}
 	
 }
