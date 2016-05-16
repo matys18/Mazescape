@@ -45,27 +45,55 @@ public class GameControl implements InputReceiver {
 	}
 	
 	/**
-	 * Stops if the directionstack is empty, otherwise it turns in the 
-	 * direction of the first element (last pressed arrow key) in the stack.
+	 * Resets the player speed, then sets new speed accoring to the stack.
 	 */
 	private void updateMovement() {
-		Direction dir = directionStack.peek();
-		if(dir == null) {
-			screen.player.setVelocity(new Vector2());
+		screen.player.setVelocity(new Vector2());
+		if(directionStack.size() == 0) {
 			return;
 		}
+		Direction primary = directionStack.peek();
+		if (directionStack.size() == 1) {
+			addSpeed(primary, playerSpeed);
+		}
+		else {
+			Direction secondary = directionStack.get(1);
+			// this mess is to check if two last keys are opposites.
+			if(( (primary == Direction.UP || primary == Direction.DOWN) &&
+				(secondary == Direction.UP || secondary == Direction.DOWN)) || (
+				(primary == Direction.RIGHT || primary == Direction.LEFT) &&
+				(secondary == Direction.RIGHT || secondary == Direction.LEFT)
+				)) {
+				addSpeed(primary, playerSpeed);
+			}
+			else {
+				// trigonometry maintains speed when moving diagonally
+				double diagonal = Math.sin(Math.PI/4);
+				addSpeed(primary, (int)(diagonal*playerSpeed));
+				addSpeed(secondary, (int)(diagonal*playerSpeed));
+			}
+		}
+	}
+	
+	/**
+	 * Add player velocity in the given direction.
+	 * @param dir Direction
+	 * @param speed int
+	 */
+	private void addSpeed(Direction dir, int speed) {
+		Vector2 old = screen.player.getVelocity();
 		switch(dir) {
 		case UP:
-			screen.player.setVelocity(new Vector2(0, playerSpeed));
+			screen.player.setVelocity(new Vector2(old.x, speed));
 			break;
 		case DOWN:
-			screen.player.setVelocity(new Vector2(0, -playerSpeed));
+			screen.player.setVelocity(new Vector2(old.x, -speed));
 			break;
 		case RIGHT:
-			screen.player.setVelocity(new Vector2(playerSpeed, 0));
+			screen.player.setVelocity(new Vector2(speed, old.y));
 			break;
 		case LEFT:
-			screen.player.setVelocity(new Vector2(-playerSpeed, 0));
+			screen.player.setVelocity(new Vector2(-speed, old.y));
 			break;
 		}
 	}
