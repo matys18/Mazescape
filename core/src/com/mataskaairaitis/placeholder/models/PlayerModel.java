@@ -68,7 +68,7 @@ public class PlayerModel {
 
     public void updateLightDistance() {
         playerLightInterval  += 0.1f;
-        playerLight.setDistance((float)Math.sin(playerLightInterval) * 5f + 100f);
+        playerLight.setDistance((float)Math.sin(playerLightInterval) * 5f + 10000f);
     }
 
     public float getRadius() {

@@ -19,7 +19,7 @@ public class WallModel {
     Body body;
     PointLight playerLight;
 
-    public WallModel(float x, float y, float width, float height, World world, RayHandler rayHandler) {
+    public WallModel(float x, float y, float width, float height, World world) {
 
         this.width = width;
         this.height = height;
@@ -34,8 +34,6 @@ public class WallModel {
         bodyShape.setAsBox(width, height);
 
         body.createFixture(bodyShape, 0f);
-
-        //playerLight = new PointLight(rayHandler, 5000, Color.BLUE, 1000, x, y);
     }
 
     public Vector2 getPosition() {

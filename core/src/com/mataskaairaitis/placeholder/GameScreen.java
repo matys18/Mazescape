@@ -1,6 +1,5 @@
 package com.mataskaairaitis.placeholder;
 
-import box2dLight.PointLight;
 import box2dLight.RayHandler;
 
 import com.badlogic.gdx.Gdx;
@@ -11,6 +10,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.Array;
+import com.mataskaairaitis.placeholder.models.LevelModel;
 import com.mataskaairaitis.placeholder.models.PlayerModel;
 import com.mataskaairaitis.placeholder.models.WallModel;
 
@@ -27,13 +28,13 @@ public class GameScreen extends ParentScreen {
     ShapeRenderer shapes;
 
     PlayerModel player;
-    WallModel wall;
+    LevelModel level;
 
     public GameScreen(final Mazescape game) {
     	super(game, GameControl.class);
 
         // Create the camera and set it's position
-        camera = new OrthographicCamera(width * 0.2f, height * 0.2f);
+        camera = new OrthographicCamera(width, height);
         camera.position.set(width * 0.5f, height * 0.5f, 0);
         camera.update();
 
@@ -55,7 +56,7 @@ public class GameScreen extends ParentScreen {
         // Create a player instance
         player = new PlayerModel(width * 0.5f, height * 0.5f, 6f, world, rayHandler, Color.ORANGE);
 
-        wall = new WallModel(width * 0.5f - 30f, height * 0.5f, 10f, 100f, world, rayHandler);
+        level = new LevelModel(world, width, height);
 
         //player.setVelocity(new Vector2(-60, 0));
     }
@@ -66,8 +67,6 @@ public class GameScreen extends ParentScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 
         Vector2 pos = player.getPosition();
-
-        Vector2 wallPos = wall.getPosition();
 
         camera.position.set(pos.x, pos.y, 0);
         camera.update();
@@ -82,7 +81,17 @@ public class GameScreen extends ParentScreen {
         shapes.setColor(player.getColor());
         shapes.circle(pos.x, pos.y, player.getRadius(), 1500);
         shapes.setColor(Color.DARK_GRAY);
-        shapes.rect(wallPos.x - wall.getWidth(), wallPos.y - wall.getHeight(), wall.getWidth() * 2, wall.getHeight() * 2f);
+
+        // Draw the walls
+        Array<WallModel> obs = level.getObstacles();
+
+        for (int i = 0; i < obs.size; i++) {
+            WallModel wall = obs.get(i);
+            Vector2 wallPos = wall.getPosition();
+            shapes.rect(wallPos.x - wall.getWidth(), wallPos.y - wall.getHeight(), wall.getWidth() * 2, wall.getHeight() * 2f);
+        }
+
+
         shapes.end();
 
         // Player lighting
