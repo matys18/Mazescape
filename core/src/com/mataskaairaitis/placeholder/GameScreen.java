@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.mataskaairaitis.placeholder.levels.Level1;
 import com.mataskaairaitis.placeholder.models.LevelModel;
 import com.mataskaairaitis.placeholder.models.PlayerModel;
 import com.mataskaairaitis.placeholder.models.WallModel;
@@ -56,7 +57,7 @@ public class GameScreen extends ParentScreen {
         // Create a player instance
         player = new PlayerModel(width * 0.5f, height * 0.5f, 6f, world, rayHandler, Color.ORANGE);
 
-        level = new LevelModel(world, width, height);
+        level = new Level1(world, width, height);
 
         //player.setVelocity(new Vector2(-60, 0));
     }
