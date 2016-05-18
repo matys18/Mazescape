@@ -12,7 +12,7 @@ public abstract class ParentScreen implements Screen {
 	
 	Mazescape game;
 	InputReceiver control;
-	float width, height;;
+	float width, height;
 	
 	/**
 	 * Parent screen constructor, takes the main Game object

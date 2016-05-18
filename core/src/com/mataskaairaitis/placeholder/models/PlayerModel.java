@@ -15,6 +15,7 @@ public class PlayerModel {
 
     Body circleBody;
     PointLight playerLight;
+    PointLight ambientPlayerLight;
     float playerLightInterval;
     Color color;
 
@@ -44,9 +45,12 @@ public class PlayerModel {
         // Attach the fixture to the player body
         circleBody.createFixture(circleFixture);
 
-        // Point Light for the player
-        playerLight = new PointLight(rayHandler, 5000, color, 100f, x, y);
+        playerLight = new PointLight(rayHandler, 5000, color, 20f, x, y);
         playerLight.setSoftnessLength(20);
+
+        // Point Light for the player
+        ambientPlayerLight = new PointLight(rayHandler, 5000, color, 150f, x, y);
+        ambientPlayerLight.setSoftnessLength(20);
     }
 
     public void setVelocity(Vector2 v) {
@@ -63,12 +67,13 @@ public class PlayerModel {
 
     public void updateLightPosition() {
         Vector2 pos = circleBody.getPosition();
+        ambientPlayerLight.setPosition(pos.x, pos.y);
         playerLight.setPosition(pos.x, pos.y);
     }
 
     public void updateLightDistance() {
         playerLightInterval  += 0.1f;
-        playerLight.setDistance((float)Math.sin(playerLightInterval) * 5f + 10000f);
+        ambientPlayerLight.setDistance((float)Math.sin(playerLightInterval) * 10f + 150f);
     }
 
     public float getRadius() {

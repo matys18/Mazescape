@@ -3,6 +3,8 @@ package com.mataskaairaitis.placeholder;
 import box2dLight.RayHandler;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
@@ -16,6 +18,8 @@ import com.mataskaairaitis.placeholder.models.LevelModel;
 import com.mataskaairaitis.placeholder.models.PlayerModel;
 import com.mataskaairaitis.placeholder.models.WallModel;
 
+import java.util.Random;
+
 /**
  * Created by mataskairaitis on 12/05/16.
  */
@@ -27,15 +31,16 @@ public class GameScreen extends ParentScreen {
     World world;
     RayHandler rayHandler;
     ShapeRenderer shapes;
+    Music ambientMusic;
 
     PlayerModel player;
     LevelModel level;
 
-    public GameScreen(final Mazescape game) {
+    public GameScreen(Mazescape game) {
     	super(game, GameControl.class);
 
         // Create the camera and set it's position
-        camera = new OrthographicCamera(width, height);
+        camera = new OrthographicCamera(width * 0.2f, height * 0.2f);
         camera.position.set(width * 0.5f, height * 0.5f, 0);
         camera.update();
 
@@ -50,6 +55,8 @@ public class GameScreen extends ParentScreen {
         // Create the box2d world
         world = new World(new Vector2(0, 0), true);
 
+        world.setContactListener(new CollisionDetector());
+
         // Lighting settings
         rayHandler = new RayHandler(world);
         rayHandler.setCombinedMatrix(camera.combined);
@@ -57,9 +64,14 @@ public class GameScreen extends ParentScreen {
         // Create a player instance
         player = new PlayerModel(510f, 270f, 6f, world, rayHandler, Color.ORANGE);
 
+        // Load obsticles for this level
         level = new Level1(world, width, height);
 
-        //player.setVelocity(new Vector2(-60, 0));
+        // Load ambient music
+        ambientMusic = Gdx.audio.newMusic(Gdx.files.internal("music/ambient.mp3"));
+        ambientMusic.setVolume(1f);
+        ambientMusic.setLooping(true);
+        ambientMusic.play();
     }
 
     @Override
@@ -72,15 +84,11 @@ public class GameScreen extends ParentScreen {
         camera.position.set(pos.x, pos.y, 0);
         camera.update();
 
-        // Render the box2d world
-        renderer.render(world, camera.combined);
-        world.step(1/60f, 6, 2);
-
         // Apply colors to player and wall objects
         shapes.setProjectionMatrix(camera.combined);
         shapes.begin(ShapeRenderer.ShapeType.Filled);
-        shapes.setColor(player.getColor());
-        shapes.circle(pos.x, pos.y, player.getRadius(), 1500);
+        //shapes.setColor(player.getColor());
+        //shapes.circle(pos.x, pos.y, player.getRadius(), 1500);
         shapes.setColor(Color.DARK_GRAY);
 
         // Draw the walls
@@ -101,6 +109,10 @@ public class GameScreen extends ParentScreen {
         rayHandler.setCombinedMatrix(camera.combined);
         rayHandler.updateAndRender();
 
+        // Render the box2d world
+        renderer.render(world, camera.combined);
+        world.step(1/60f, 6, 2);
+
         // Log the fps
         fpsLogger.log();
     }
@@ -112,10 +124,21 @@ public class GameScreen extends ParentScreen {
     }
 
     @Override
+    public void pause() {
+        ambientMusic.pause();
+    }
+
+    @Override
+    public void resume() {
+        ambientMusic.play();
+    }
+
+    @Override
     public void dispose() {
         world.dispose();
         renderer.dispose();
         rayHandler.dispose();
+        ambientMusic.dispose();
     }
 
 }

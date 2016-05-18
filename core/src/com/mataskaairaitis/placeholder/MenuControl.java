@@ -56,6 +56,7 @@ public class MenuControl implements InputReceiver {
 	private void activateKey() {
 		switch (highlight) {
 		case 0:
+			System.out.println("kek");
 			screen.game.gameScreen = new GameScreen(screen.game);
 			screen.game.setScreen(screen.game.gameScreen);
 			break;
