@@ -55,7 +55,7 @@ public class GameScreen extends ParentScreen {
         rayHandler.setCombinedMatrix(camera.combined);
 
         // Create a player instance
-        player = new PlayerModel(width * 0.5f, height * 0.5f, 6f, world, rayHandler, Color.ORANGE);
+        player = new PlayerModel(510f, 270f, 6f, world, rayHandler, Color.ORANGE);
 
         level = new Level1(world, width, height);
 
