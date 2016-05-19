@@ -6,11 +6,11 @@ A 2d maze game where you try to escape the dark.
 
 ##### How to build the project
 
-1: Clone the repo
-2: Cd into ``/desktop``
-3: ``gradlew build``
-4: Put on headphones
-5: ``gradlew run``
+1. Clone the repo
+2. Cd into ``/desktop``
+3. ``gradlew build``
+4. Put on headphones
+5. ``gradlew run``
 
 ##### MVP
 
