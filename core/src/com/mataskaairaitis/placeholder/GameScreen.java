@@ -21,7 +21,9 @@ import com.mataskaairaitis.placeholder.models.WallModel;
 import java.util.Random;
 
 /**
- * Created by mataskairaitis on 12/05/16.
+ * The Screen that represents the actual game.
+ * @author Matas Kairaitis
+ * @version 2016-06-19
  */
 public class GameScreen extends ParentScreen {
 
@@ -36,6 +38,10 @@ public class GameScreen extends ParentScreen {
     PlayerModel player;
     LevelModel level;
 
+    /**
+     * Constructs a new GameScreen.
+     * @param game  The Game of which this Screen is a part of
+     */
     public GameScreen(Mazescape game) {
     	super(game, GameControl.class);
 
@@ -74,6 +80,11 @@ public class GameScreen extends ParentScreen {
         ambientMusic.play();
     }
 
+    /**
+     * Renders the player and the walls.
+     * Updates lights and box2d physics.
+     * {@inheritDoc}
+     */
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1); // Sets background to black
@@ -87,8 +98,6 @@ public class GameScreen extends ParentScreen {
         // Apply colors to player and wall objects
         shapes.setProjectionMatrix(camera.combined);
         shapes.begin(ShapeRenderer.ShapeType.Filled);
-        //shapes.setColor(player.getColor());
-        //shapes.circle(pos.x, pos.y, player.getRadius(), 1500);
         shapes.setColor(Color.DARK_GRAY);
 
         // Draw the walls
@@ -99,7 +108,6 @@ public class GameScreen extends ParentScreen {
             Vector2 wallPos = wall.getPosition();
             shapes.rect(wallPos.x - wall.getWidth(), wallPos.y - wall.getHeight(), wall.getWidth() * 2, wall.getHeight() * 2f);
         }
-
 
         shapes.end();
 
@@ -117,22 +125,36 @@ public class GameScreen extends ParentScreen {
         fpsLogger.log();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void show() {
     	super.show();
     	Gdx.graphics.setContinuousRendering(true);
     }
 
+    /**
+     * Pauses the music.
+     * {@inheritDoc}
+     */
     @Override
     public void pause() {
         ambientMusic.pause();
     }
 
+    /**
+     * Resumes the music.
+     * {@inheritDoc}
+     */
     @Override
     public void resume() {
         ambientMusic.play();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void dispose() {
         world.dispose();
