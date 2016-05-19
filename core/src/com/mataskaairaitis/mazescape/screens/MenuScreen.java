@@ -75,8 +75,10 @@ public class MenuScreen extends ParentScreen {
 		checkLabelState();
 	}
 	
+	public Label[] getLabels() { return labels; }
+	
 	private void checkLabelState() {
-		if(game.gameScreen == null)
+		if(game.getGameScreen() == null)
 			labels[1].setColor(Color.LIGHT_GRAY);
 		else
 			labels[1].setColor(Color.WHITE);

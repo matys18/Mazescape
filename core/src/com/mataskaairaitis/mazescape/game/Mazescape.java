@@ -31,6 +31,11 @@ public class Mazescape extends Game {
 	MenuScreen menuScreen;
 	UserInput userInput;
 
+	public GameScreen getGameScreen() { return gameScreen; }
+	public void setGameScreen(GameScreen gameScreen) { this.gameScreen = gameScreen; }
+	public MenuScreen getMenuScreen() { return menuScreen; }
+	public UserInput getUserInput() { return userInput; }
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -40,7 +45,7 @@ public class Mazescape extends Game {
 		userInput = new UserInput();
 		this.setScreen(menuScreen);
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */

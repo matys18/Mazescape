@@ -35,7 +35,7 @@ public class GameScreen extends ParentScreen {
     ShapeRenderer shapes;
     Music ambientMusic;
 
-    PlayerModel player;
+    public PlayerModel player;
     LevelModel level;
 
     /**

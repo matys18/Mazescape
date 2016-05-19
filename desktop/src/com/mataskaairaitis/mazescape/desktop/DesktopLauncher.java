@@ -2,7 +2,7 @@ package com.mataskaairaitis.mazescape.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.mataskaairaitis.mazescape.Mazescape;
+import com.mataskaairaitis.mazescape.game.Mazescape;;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {

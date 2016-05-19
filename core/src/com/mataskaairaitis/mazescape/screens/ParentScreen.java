@@ -31,13 +31,16 @@ public abstract class ParentScreen implements Screen {
 		width = 1280;
 		height = 720;
 	}
+	
+	public Mazescape getGame() { return game; }
+	public InputReceiver getControl() { return control; }
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void show() {
-		game.userInput.setReceiver(control);
+		game.getUserInput().setReceiver(control);
 	}
 
 	/**
