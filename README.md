@@ -8,9 +8,9 @@ A 2d maze game where you try to escape the dark.
 
 1: Clone the repo
 2: Cd into ``/desktop``
-3: ``gradle build``
+3: ``gradlew build``
 4: Put on headphones
-5: ``gradle run``
+5: ``gradlew run``
 
 ##### MVP
 
