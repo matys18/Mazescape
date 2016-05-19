@@ -59,7 +59,8 @@ public class UserInput implements InputProcessor {
 				Method method = receiver.getClass().getMethod(function_name);
 				method.invoke(receiver);
 			}
-			catch (Exception e) {}
+			catch (NoSuchMethodException noMethod) {}
+			catch (Exception e) {System.out.println(e);}
 		}
 	}
 	
