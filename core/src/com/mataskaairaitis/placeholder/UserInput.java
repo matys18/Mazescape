@@ -37,36 +37,19 @@ public class UserInput implements InputProcessor {
 	 * Attemps to call a method in the InputReceiver object, if the object
 	 * contains such a method. If there exists no such method, the exception
 	 * is ignored.
-	 * 
 	 * @param function_name the name of the method to be called.
 	 */
 	private void callFunctionByName(String function_name) {
-		InputThread key_thread = new InputThread(function_name);
-		key_thread.start();
-	}
-	
-	/**
-	 * Local Thread class to search and execute desired methods.  
-	 */
-	private class InputThread extends Thread {
-		private String function_name;
-		
-		public InputThread(String function_name) {
-			this.function_name = function_name;
+		try {
+			Method method = receiver.getClass().getMethod(function_name);
+			method.invoke(receiver);
 		}
-		
-		public void run() {
-			try {
-				Method method = receiver.getClass().getMethod(function_name);
-				method.invoke(receiver);
-			}
-			catch (NoSuchMethodException noMethod) {}
-			// invTarget if something wrong happens in invoked method.
-			catch (InvocationTargetException invTarget) {
-				System.out.println(invTarget.getCause());
-			}
-			catch (Exception e) {System.out.println(e);}
+		catch (NoSuchMethodException noMethod) {}
+		// invTarget if something wrong happens in invoked method.
+		catch (InvocationTargetException invTarget) {
+			System.out.println(invTarget.getCause());
 		}
+		catch (Exception e) {System.out.println(e);}
 	}
 	
 	/**
