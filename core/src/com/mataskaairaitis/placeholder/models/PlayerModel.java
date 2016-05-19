@@ -9,7 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 /**
- * Created by mataskairaitis on 12/05/16.
+ * The model that represents the player in the game.
+ * @author Matas Kairaitis
+ * @version 2016-06-19
  */
 public class PlayerModel {
 
@@ -19,6 +21,15 @@ public class PlayerModel {
     float playerLightInterval;
     Color color;
 
+    /**
+     * Creates a new player with the given properties.
+     * @param x  The x coordinate of the player
+     * @param y  The y coordinate of the player
+     * @param radius  The radius of the player
+     * @param world  The World in which the player is staged
+     * @param rayHandler  The RayHandler associated with this player
+     * @param col  The color of the player
+     */
     public PlayerModel(float x, float y, float radius, World world, RayHandler rayHandler, Color col) {
         // Set the player color
         color = col;
@@ -53,41 +64,77 @@ public class PlayerModel {
         ambientPlayerLight.setSoftnessLength(20);
     }
 
+    /**
+     * Setter for the velocity of the player.
+     * @param v Magnitudes of the new x,y velocities of the player
+     */
     public void setVelocity(Vector2 v) {
         circleBody.setLinearVelocity(v.x, v.y);
     }
-    
+
+    /**
+     * Getter for the velocity of the player.
+     * @return  Current x,y velocities of the player
+     */
     public Vector2 getVelocity() {
     	return circleBody.getLinearVelocity();
     }
 
+    /**
+     * Getter for the position of the player.
+     * @return  Current x,y positions of the player
+     */
     public Vector2 getPosition() {
         return circleBody.getPosition();
     }
 
+    /**
+     * Updates the position of the light objects attached to the player
+     * based on the position of the player.
+     */
     public void updateLightPosition() {
         Vector2 pos = circleBody.getPosition();
         ambientPlayerLight.setPosition(pos.x, pos.y);
         playerLight.setPosition(pos.x, pos.y);
     }
 
+    /**
+     * Updates the distance of the light objects attached to the player
+     * based on the position of the player.
+     */
     public void updateLightDistance() {
         playerLightInterval  += 0.1f;
         ambientPlayerLight.setDistance((float)Math.sin(playerLightInterval) * 10f + 150f);
     }
 
+    /**
+     * Getter for the radius of the player.
+     * @return The radius of the player
+     */
     public float getRadius() {
         return circleBody.getFixtureList().get(0).getShape().getRadius();
     }
 
+    /**
+     * Setter for the radius of the player.
+     * @param radius  The new radius of the player
+     */
     public void setRadius(float radius) {
         circleBody.getFixtureList().get(0).getShape().setRadius(radius);
     }
 
+    /**
+     * Getter for the color of the player.
+     * @return  Color of the player.
+     */
     public Color getColor() {
         return color;
     }
 
+    /**
+     * Setter for the color of the player.
+     * @param color  New color of the player.
+     */
     public void setColor(Color color) {
         this.color = color;
     }

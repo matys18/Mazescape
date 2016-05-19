@@ -26,7 +26,7 @@ import java.util.Random;
 public class GameScreen extends ParentScreen {
 
     OrthographicCamera camera;
-    Box2DDebugRenderer renderer;
+    //Box2DDebugRenderer renderer;
     FPSLogger fpsLogger;
     World world;
     RayHandler rayHandler;
@@ -49,7 +49,7 @@ public class GameScreen extends ParentScreen {
         shapes.setProjectionMatrix(camera.combined);
 
         // Fps logger and box2d renderer
-        renderer = new Box2DDebugRenderer();
+        //renderer = new Box2DDebugRenderer();
         fpsLogger = new FPSLogger();
 
         // Create the box2d world
@@ -110,7 +110,7 @@ public class GameScreen extends ParentScreen {
         rayHandler.updateAndRender();
 
         // Render the box2d world
-        renderer.render(world, camera.combined);
+        //renderer.render(world, camera.combined);
         world.step(1/60f, 6, 2);
 
         // Log the fps
@@ -136,7 +136,7 @@ public class GameScreen extends ParentScreen {
     @Override
     public void dispose() {
         world.dispose();
-        renderer.dispose();
+        //renderer.dispose();
         rayHandler.dispose();
         ambientMusic.dispose();
     }
