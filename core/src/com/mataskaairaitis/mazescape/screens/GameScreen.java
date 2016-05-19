@@ -35,8 +35,10 @@ public class GameScreen extends ParentScreen {
     ShapeRenderer shapes;
     Music ambientMusic;
 
-    public PlayerModel player;
+    PlayerModel player;
     LevelModel level;
+    
+    public PlayerModel getPlayer() { return player; }
 
     /**
      * Constructs a new GameScreen.
