@@ -19,6 +19,8 @@ import java.util.Random;
 /**
  * Main game class. Holds the screens and user input, and passes
  * itself to all screens so that they may reach each other.
+ * @author Matas Kairaitis
+ * @version 2016-06-19
  */
 public class Mazescape extends Game {
 
@@ -26,6 +28,9 @@ public class Mazescape extends Game {
 	MenuScreen menuScreen;
 	UserInput userInput;
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void create () {
 		menuScreen = new MenuScreen(this);
@@ -33,13 +38,19 @@ public class Mazescape extends Game {
 		this.setScreen(menuScreen);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void render () {
 		super.render();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void dispose() {
-
+		menuScreen.dispose();
 	}
 }

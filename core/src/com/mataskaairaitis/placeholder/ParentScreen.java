@@ -29,24 +29,42 @@ public abstract class ParentScreen implements Screen {
 		width = 1280;
 		height = 720;
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void show() {
 		game.userInput.setReceiver(control);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void hide() {}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void pause() {}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void resume() {}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void resize(int width, int height) {}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void dispose() {}
 	

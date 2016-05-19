@@ -10,7 +10,9 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * Created by mataskairaitis on 15/05/16.
+ * The model that represents a wall in the game.
+ * @author Matas Kairaitis
+ * @version 2016-06-19
  */
 public class WallModel {
 
@@ -19,6 +21,14 @@ public class WallModel {
     Body body;
     PointLight playerLight;
 
+    /**
+     * Constructs a new WallModel with the following properties.
+     * @param x  X-coordinate of the wall
+     * @param y  Y-coordinate of the wall
+     * @param width  Width of the wall
+     * @param height  Height of the wall
+     * @param world  World in which the wall is staged
+     */
     public WallModel(float x, float y, float width, float height, World world) {
 
         this.width = width;
@@ -36,14 +46,26 @@ public class WallModel {
         body.createFixture(bodyShape, 0f);
     }
 
+    /**
+     * Getter for the position of the wall.
+     * @return  x,y coordinates of the wall
+     */
     public Vector2 getPosition() {
         return body.getPosition();
     }
 
+    /**
+     * Getter for the width of the wall.
+     * @return Width of the wall
+     */
     public float getWidth() {
         return width;
     }
 
+    /**
+     * Getter for the height of the wall
+     * @return  Height of the wall
+     */
     public float getHeight() {
         return height;
     }

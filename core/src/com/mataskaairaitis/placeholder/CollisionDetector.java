@@ -17,7 +17,12 @@ public class CollisionDetector implements ContactListener {
 
     Random r;
     Array<Sound> collisionSounds;
+    Sound activeSound;
 
+    /**
+     * Constructs a new CollisionDetector that contains
+     * collision listeners. Loads collision audio files.
+     */
     public CollisionDetector() {
         r = new Random();
 
@@ -28,21 +33,39 @@ public class CollisionDetector implements ContactListener {
         });
     }
 
+    /**
+     * Stops the sound that is currently playing.
+     */
+    public void stop() {
+        activeSound.stop();
+    }
 
+
+    /**
+     * Plays a sound on collision.
+     * {@inheritDoc}
+     */
     @Override
     public void beginContact(Contact contact) {
-        System.out.println("Collision start");
-        collisionSounds.get(r.nextInt(collisionSounds.size)).play(0.1f);
+        activeSound = collisionSounds.get(r.nextInt(collisionSounds.size));
+        activeSound.play(0.1f);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void endContact(Contact contact) {
-        System.out.println("Collision end");
-    }
+    public void endContact(Contact contact) {}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void preSolve(Contact contact, Manifold oldManifold) {}
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void postSolve(Contact contact, ContactImpulse impulse) {}
 }
