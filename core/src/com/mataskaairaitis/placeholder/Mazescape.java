@@ -20,6 +20,7 @@ import java.util.Random;
  * Main game class. Holds the screens and user input, and passes
  * itself to all screens so that they may reach each other.
  * @author Matas Kairaitis
+ * @version 2016-06-19
  */
 public class Mazescape extends Game {
 

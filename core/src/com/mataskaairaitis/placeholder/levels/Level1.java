@@ -4,18 +4,23 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mataskaairaitis.placeholder.models.LevelModel;
 
 /**
+ * Represents the first level of the game.
+ *
  * Width is 1280, height 720
  * 
- * left boundary: 100
- * bottom boundary: 90
- * right: 1180
- * top: 630
+ * Left boundary: 100
+ * Bottom boundary: 90
+ * Right: 1180
+ * Top: 630
  * 
- * 
- * Created by mataskairaitis on 17/05/16.
+ * @author Jarl Silven, Matas Kairaitis
+ * @version 2016-06-19
  */
 public class Level1 extends LevelModel {
-	
+
+    /**
+     * {@inheritDoc}
+     */
     public Level1(World world, float width, float height) {
         super(world, width, height, 10);
 

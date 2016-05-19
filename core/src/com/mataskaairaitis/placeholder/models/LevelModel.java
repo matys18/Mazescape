@@ -18,7 +18,8 @@ public class LevelModel {
     private Array<WallModel> obstacles;
 
     /**
-     * Constructs a new Level with the following properties.
+     * Constructs a new Level with the following properties
+     * and creates obstacles staged in the level.
      * @param world  The world in which the level is staged
      * @param width  The width of the level
      * @param height  The height of the level
