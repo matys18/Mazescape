@@ -1,5 +1,6 @@
 package com.mataskaairaitis.placeholder;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.badlogic.gdx.Gdx;
@@ -60,6 +61,10 @@ public class UserInput implements InputProcessor {
 				method.invoke(receiver);
 			}
 			catch (NoSuchMethodException noMethod) {}
+			// invTarget if something wrong happens in invoked method.
+			catch (InvocationTargetException invTarget) {
+				System.out.println(invTarget.getCause());
+			}
 			catch (Exception e) {System.out.println(e);}
 		}
 	}
