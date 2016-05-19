@@ -1,4 +1,4 @@
-package com.mataskaairaitis.mazescape;
+package com.mataskaairaitis.mazescape.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;

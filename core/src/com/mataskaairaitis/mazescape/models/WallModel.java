@@ -1,4 +1,4 @@
-package com.mataskaairaitis.mazescape;
+package com.mataskaairaitis.mazescape.models;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;

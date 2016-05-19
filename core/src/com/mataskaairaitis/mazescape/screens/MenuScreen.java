@@ -1,4 +1,4 @@
-package com.mataskaairaitis.mazescape;
+package com.mataskaairaitis.mazescape.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -10,7 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.mataskaairaitis.mazescape.MenuControl;
+import com.mataskaairaitis.mazescape.input.MenuControl;
+import com.mataskaairaitis.mazescape.game.*;
 
 public class MenuScreen extends ParentScreen {
 

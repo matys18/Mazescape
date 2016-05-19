@@ -1,8 +1,10 @@
-package com.mataskaairaitis.mazescape;
+package com.mataskaairaitis.mazescape.input;
 
 import java.util.LinkedList;
 
 import com.badlogic.gdx.math.Vector2;
+
+import com.mataskaairaitis.mazescape.screens.*;
 
 /**
  * GameControl class which allows the user to control a player object through

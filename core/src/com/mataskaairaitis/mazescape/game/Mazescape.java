@@ -1,4 +1,4 @@
-package com.mataskaairaitis.mazescape;
+package com.mataskaairaitis.mazescape.game;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
@@ -14,9 +14,8 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.mataskaairaitis.mazescape.GameScreen;
-import com.mataskaairaitis.mazescape.MenuScreen;
-import com.mataskaairaitis.mazescape.UserInput;
+import com.mataskaairaitis.mazescape.screens.*;
+import com.mataskaairaitis.mazescape.input.*;
 
 import java.util.Random;
 

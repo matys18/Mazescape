@@ -1,4 +1,4 @@
-package com.mataskaairaitis.mazescape;
+package com.mataskaairaitis.mazescape.input;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -1,4 +1,4 @@
-package com.mataskaairaitis.mazescape;
+package com.mataskaairaitis.mazescape.screens;
 
 import box2dLight.RayHandler;
 
@@ -13,11 +13,10 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import com.mataskaairaitis.mazescape.GameControl;
-import com.mataskaairaitis.mazescape.Level1;
-import com.mataskaairaitis.mazescape.LevelModel;
-import com.mataskaairaitis.mazescape.PlayerModel;
-import com.mataskaairaitis.mazescape.WallModel;
+import com.mataskaairaitis.mazescape.input.*;
+import com.mataskaairaitis.mazescape.levels.*;
+import com.mataskaairaitis.mazescape.models.*;
+import com.mataskaairaitis.mazescape.game.*;
 
 import java.util.Random;
 

@@ -1,7 +1,7 @@
-package com.mataskaairaitis.mazescape;
+package com.mataskaairaitis.mazescape.levels;
 
 import com.badlogic.gdx.physics.box2d.World;
-import com.mataskaairaitis.mazescape.LevelModel;
+import com.mataskaairaitis.mazescape.models.LevelModel;
 
 /**
  * Represents the first level of the game.

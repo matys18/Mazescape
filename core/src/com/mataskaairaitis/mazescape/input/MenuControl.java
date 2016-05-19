@@ -1,7 +1,9 @@
-package com.mataskaairaitis.mazescape;
+package com.mataskaairaitis.mazescape.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+
+import com.mataskaairaitis.mazescape.screens.*;
 
 /**
  * Sample Menu control class, for testing purposes.

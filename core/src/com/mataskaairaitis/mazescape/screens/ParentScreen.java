@@ -1,7 +1,8 @@
-package com.mataskaairaitis.mazescape;
+package com.mataskaairaitis.mazescape.screens;
 
 import com.badlogic.gdx.Screen;
-import com.mataskaairaitis.mazescape.InputReceiver;
+import com.mataskaairaitis.mazescape.input.*;
+import com.mataskaairaitis.mazescape.game.*;
 
 /**
  * Abstract Screen class, which will combine common elements in
