@@ -3,6 +3,7 @@ package com.mataskaairaitis.mazescape.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -10,8 +11,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.mataskaairaitis.mazescape.Mazescape;
 import com.mataskaairaitis.mazescape.input.MenuControl;
-import com.mataskaairaitis.mazescape.game.*;
 
 public class MenuScreen extends ParentScreen {
 
@@ -19,10 +20,17 @@ public class MenuScreen extends ParentScreen {
 	Label title;
 	Sprite image;
 	Label[] labels;
+	OrthographicCamera camera;
 	
 	public MenuScreen(Mazescape game) {
 		super(game, MenuControl.class);
+
+		camera = new OrthographicCamera(width, height);
+		camera.position.set(width * 0.5f, height * 0.5f, 0);
+		camera.update();
+
 		batch = new SpriteBatch();
+		batch.setProjectionMatrix(camera.combined);
 		
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/punk.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();

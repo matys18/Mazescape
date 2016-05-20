@@ -4,7 +4,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * The model that represents a Level in the game.
+ * The model that represents a Level in the misc.
  * @author Matas Kairaitis, Jarl Silven
  * @version 2016-06-19
  */

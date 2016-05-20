@@ -1,4 +1,4 @@
-package com.mataskaairaitis.mazescape.game;
+package com.mataskaairaitis.mazescape;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
@@ -20,7 +20,7 @@ import com.mataskaairaitis.mazescape.input.*;
 import java.util.Random;
 
 /**
- * Main game class. Holds the screens and user input, and passes
+ * Main misc class. Holds the screens and user input, and passes
  * itself to all screens so that they may reach each other.
  * @author Matas Kairaitis
  * @version 2016-06-19
