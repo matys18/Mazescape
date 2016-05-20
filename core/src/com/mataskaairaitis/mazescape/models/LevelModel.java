@@ -1,11 +1,10 @@
-package com.mataskaairaitis.placeholder.models;
+package com.mataskaairaitis.mazescape.models;
 
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.mataskaairaitis.placeholder.models.WallModel;
 
 /**
- * The model that represents a Level in the game.
+ * The model that represents a Level in the misc.
  * @author Matas Kairaitis, Jarl Silven
  * @version 2016-06-19
  */

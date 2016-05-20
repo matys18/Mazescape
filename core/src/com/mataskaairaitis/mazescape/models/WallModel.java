@@ -1,4 +1,4 @@
-package com.mataskaairaitis.placeholder.models;
+package com.mataskaairaitis.mazescape.models;
 
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 /**
- * The model that represents a wall in the game.
+ * The model that represents a wall in the misc.
  * @author Matas Kairaitis
  * @version 2016-06-19
  */

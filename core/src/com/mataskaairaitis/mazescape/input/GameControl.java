@@ -1,8 +1,10 @@
-package com.mataskaairaitis.placeholder;
+package com.mataskaairaitis.mazescape.input;
 
 import java.util.LinkedList;
 
 import com.badlogic.gdx.math.Vector2;
+
+import com.mataskaairaitis.mazescape.screens.*;
 
 /**
  * GameControl class which allows the user to control a player object through
@@ -48,7 +50,7 @@ public class GameControl implements InputReceiver {
 	 * Resets the player speed, then sets new speed accoring to the stack.
 	 */
 	private void updateMovement() {
-		screen.player.setVelocity(new Vector2());
+		screen.getPlayer().setVelocity(new Vector2());
 		if(directionStack.size() == 0) {
 			return;
 		}
@@ -81,19 +83,19 @@ public class GameControl implements InputReceiver {
 	 * @param speed int
 	 */
 	private void addSpeed(Direction dir, int speed) {
-		Vector2 old = screen.player.getVelocity();
+		Vector2 old = screen.getPlayer().getVelocity();
 		switch(dir) {
 		case UP:
-			screen.player.setVelocity(new Vector2(old.x, speed));
+			screen.getPlayer().setVelocity(new Vector2(old.x, speed));
 			break;
 		case DOWN:
-			screen.player.setVelocity(new Vector2(old.x, -speed));
+			screen.getPlayer().setVelocity(new Vector2(old.x, -speed));
 			break;
 		case RIGHT:
-			screen.player.setVelocity(new Vector2(speed, old.y));
+			screen.getPlayer().setVelocity(new Vector2(speed, old.y));
 			break;
 		case LEFT:
-			screen.player.setVelocity(new Vector2(-speed, old.y));
+			screen.getPlayer().setVelocity(new Vector2(-speed, old.y));
 			break;
 		}
 	}
@@ -130,8 +132,10 @@ public class GameControl implements InputReceiver {
 	}
 	
 	public void keyPressedEscape() {
-		screen.game.setScreen(screen.game.menuScreen);
-		MenuControl menu = (MenuControl)screen.game.menuScreen.control;
+		screen.getPlayer().setVelocity(new Vector2());
+		directionStack = new LinkedList<Direction>();
+		screen.getGame().setScreen(screen.getGame().getMenuScreen());
+		MenuControl menu = (MenuControl)screen.getGame().getMenuScreen().getControl();
 		menu.switchColor(menu.highlight, 1);
 	}
 	

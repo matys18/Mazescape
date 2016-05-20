@@ -1,7 +1,9 @@
-package com.mataskaairaitis.placeholder;
+package com.mataskaairaitis.mazescape.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+
+import com.mataskaairaitis.mazescape.screens.*;
 
 /**
  * Sample Menu control class, for testing purposes.
@@ -25,16 +27,16 @@ public class MenuControl implements InputReceiver {
 	}
 	
 	private int moveUp(int steps) {
-		int length = screen.labels.length;
+		int length = screen.getLabels().length;
 		int next = (highlight + length - steps) % length;
-		if(screen.labels[next].getColor().equals(Color.LIGHT_GRAY))
+		if(screen.getLabels()[next].getColor().equals(Color.LIGHT_GRAY))
 			return moveUp(steps + 1);
 		return next;
 	}
 	
 	private int moveDown(int steps) {
-		int next = (highlight + steps) % screen.labels.length;
-		if(screen.labels[next].getColor().equals(Color.LIGHT_GRAY))
+		int next = (highlight + steps) % screen.getLabels().length;
+		if(screen.getLabels()[next].getColor().equals(Color.LIGHT_GRAY))
 			return moveDown(steps + 1);
 		return next;
 	}
@@ -48,19 +50,19 @@ public class MenuControl implements InputReceiver {
 	}
 	
 	public void switchColor(int prev, int next) {
-		screen.labels[prev].setColor(Color.WHITE);
+		screen.getLabels()[prev].setColor(Color.WHITE);
 		highlight = next;
-		screen.labels[next].setColor(Color.ORANGE);
+		screen.getLabels()[next].setColor(Color.ORANGE);
 	}
 
 	private void activateKey() {
 		switch (highlight) {
 		case 0:
-			screen.game.gameScreen = new GameScreen(screen.game);
-			screen.game.setScreen(screen.game.gameScreen);
+			screen.getGame().setGameScreen(new GameScreen(screen.getGame()));
+			screen.getGame().setScreen(screen.getGame().getGameScreen());
 			break;
 		case 1:
-			screen.game.setScreen(screen.game.gameScreen);
+			screen.getGame().setScreen(screen.getGame().getGameScreen());
 			break;
 		case 2:
 			break;

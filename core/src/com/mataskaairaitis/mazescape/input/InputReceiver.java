@@ -1,4 +1,4 @@
-package com.mataskaairaitis.placeholder;
+package com.mataskaairaitis.mazescape.input;
 
 /**
  * Interface for classes that may be held by UserInput,

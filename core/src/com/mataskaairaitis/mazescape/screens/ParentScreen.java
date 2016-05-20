@@ -1,6 +1,8 @@
-package com.mataskaairaitis.placeholder;
+package com.mataskaairaitis.mazescape.screens;
 
 import com.badlogic.gdx.Screen;
+import com.mataskaairaitis.mazescape.Mazescape;
+import com.mataskaairaitis.mazescape.input.*;
 
 /**
  * Abstract Screen class, which will combine common elements in
@@ -29,13 +31,16 @@ public abstract class ParentScreen implements Screen {
 		width = 1280;
 		height = 720;
 	}
+	
+	public Mazescape getGame() { return game; }
+	public InputReceiver getControl() { return control; }
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void show() {
-		game.userInput.setReceiver(control);
+		game.getUserInput().setReceiver(control);
 	}
 
 	/**

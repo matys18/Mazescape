@@ -1,10 +1,10 @@
-package com.mataskaairaitis.placeholder.levels;
+package com.mataskaairaitis.mazescape.levels;
 
 import com.badlogic.gdx.physics.box2d.World;
-import com.mataskaairaitis.placeholder.models.LevelModel;
+import com.mataskaairaitis.mazescape.models.LevelModel;
 
 /**
- * Represents the first level of the game.
+ * Represents the first level of the misc.
  *
  * Width is 1280, height 720
  * 
