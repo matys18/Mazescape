@@ -19,12 +19,12 @@ public class CircleModel {
      * @param radius  Radius of the circle
      * @param world   World in which the circle is staged
      */
-    public CircleModel(float x, float y, float radius, World world) {
+    public CircleModel(Vector2 pos, float radius, World world) {
 
         // Create a body definition for the circle
         BodyDef circleDef = new BodyDef();
         circleDef.type = BodyDef.BodyType.DynamicBody;
-        circleDef.position.set(x, y);
+        circleDef.position.set(pos.x, pos.y);
 
         // Create a box2d body
         circleBody = world.createBody(circleDef);
