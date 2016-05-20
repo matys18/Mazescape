@@ -1,10 +1,10 @@
 package com.mataskaairaitis.mazescape.screens;
 
+import box2dLight.PointLight;
 import box2dLight.RayHandler;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
@@ -13,22 +13,21 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.mataskaairaitis.mazescape.Mazescape;
 import com.mataskaairaitis.mazescape.input.*;
 import com.mataskaairaitis.mazescape.levels.*;
 import com.mataskaairaitis.mazescape.models.*;
-import com.mataskaairaitis.mazescape.game.*;
-
-import java.util.Random;
+import com.mataskaairaitis.mazescape.misc.*;
 
 /**
- * The Screen that represents the actual game.
+ * The Screen that represents the actual misc.
  * @author Matas Kairaitis
  * @version 2016-06-19
  */
 public class GameScreen extends ParentScreen {
 
     OrthographicCamera camera;
-    //Box2DDebugRenderer renderer;
+    Box2DDebugRenderer renderer;
     FPSLogger fpsLogger;
     World world;
     RayHandler rayHandler;
@@ -37,6 +36,8 @@ public class GameScreen extends ParentScreen {
 
     public PlayerModel player;
     LevelModel level;
+
+    PointLight goal;
 
     /**
      * Constructs a new GameScreen.
@@ -55,7 +56,7 @@ public class GameScreen extends ParentScreen {
         shapes.setProjectionMatrix(camera.combined);
 
         // Fps logger and box2d renderer
-        //renderer = new Box2DDebugRenderer();
+        renderer = new Box2DDebugRenderer();
         fpsLogger = new FPSLogger();
 
         // Create the box2d world
@@ -68,7 +69,9 @@ public class GameScreen extends ParentScreen {
         rayHandler.setCombinedMatrix(camera.combined);
 
         // Create a player instance
-        player = new PlayerModel(510f, 270f, 6f, world, rayHandler, Color.ORANGE);
+        player = new PlayerModel(new Vector2(510f, 270f), 6f, world, rayHandler, Color.ORANGE);
+
+        new LightableCircleModel(new Vector2(1110f, 458f), 3f, world, rayHandler, Color.WHITE, 3f, 50f);
 
         // Load obsticles for this level
         level = new Level1(world, width, height);
@@ -91,6 +94,10 @@ public class GameScreen extends ParentScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 
         Vector2 pos = player.getPosition();
+        //System.out.print(pos.x);
+        //System.out.print("   ");
+        //System.out.print(pos.y);
+        //System.out.println();
 
         camera.position.set(pos.x, pos.y, 0);
         camera.update();
@@ -118,7 +125,7 @@ public class GameScreen extends ParentScreen {
         rayHandler.updateAndRender();
 
         // Render the box2d world
-        //renderer.render(world, camera.combined);
+        renderer.render(world, camera.combined);
         world.step(1/60f, 6, 2);
 
         // Log the fps

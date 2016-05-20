@@ -14,8 +14,7 @@ public class CircleModel {
 
     /**
      * Creates a new circle with physical box2d properties.
-     * @param x  X-coordinate of the position
-     * @param y  Y-coordinate of the position
+     * @param pos  Position of the circle
      * @param radius  Radius of the circle
      * @param world   World in which the circle is staged
      */

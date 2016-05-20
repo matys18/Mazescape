@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.mataskaairaitis.mazescape.game.Mazescape;
+import com.mataskaairaitis.mazescape.Mazescape;
 import com.mataskaairaitis.mazescape.input.MenuControl;
 
 public class MenuScreen extends ParentScreen {
