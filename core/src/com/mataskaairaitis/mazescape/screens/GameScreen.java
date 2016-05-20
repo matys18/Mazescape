@@ -28,7 +28,7 @@ import java.util.Random;
 public class GameScreen extends ParentScreen {
 
     OrthographicCamera camera;
-    //Box2DDebugRenderer renderer;
+    Box2DDebugRenderer renderer;
     FPSLogger fpsLogger;
     World world;
     RayHandler rayHandler;
@@ -48,7 +48,7 @@ public class GameScreen extends ParentScreen {
     	super(game, GameControl.class);
 
         // Create the camera and set it's position
-        camera = new OrthographicCamera(width * 0.2f, height * 0.2f);
+        camera = new OrthographicCamera(width, height);
         camera.position.set(width * 0.5f, height * 0.5f, 0);
         camera.update();
 
@@ -57,7 +57,7 @@ public class GameScreen extends ParentScreen {
         shapes.setProjectionMatrix(camera.combined);
 
         // Fps logger and box2d renderer
-        //renderer = new Box2DDebugRenderer();
+        renderer = new Box2DDebugRenderer();
         fpsLogger = new FPSLogger();
 
         // Create the box2d world
@@ -93,6 +93,9 @@ public class GameScreen extends ParentScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 
         Vector2 pos = player.getPosition();
+        
+        if(pos.x < 50)
+        	player.setPosition(new Vector2(1250, pos.y));
 
         camera.position.set(pos.x, pos.y, 0);
         camera.update();
@@ -120,7 +123,7 @@ public class GameScreen extends ParentScreen {
         rayHandler.updateAndRender();
 
         // Render the box2d world
-        //renderer.render(world, camera.combined);
+        renderer.render(world, camera.combined);
         world.step(1/60f, 6, 2);
 
         // Log the fps

@@ -79,6 +79,14 @@ public class PlayerModel {
     public Vector2 getVelocity() {
     	return circleBody.getLinearVelocity();
     }
+    
+    /**
+     * Teleports the player to new position
+     * @param New x,y position of the player
+     */
+    public void setPosition(Vector2 v) {
+    	circleBody.setTransform(v, 0);
+    }
 
     /**
      * Getter for the position of the player.
