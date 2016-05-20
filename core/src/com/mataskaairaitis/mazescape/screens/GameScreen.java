@@ -49,7 +49,7 @@ public class GameScreen extends ParentScreen {
     	super(game, GameControl.class);
 
         // Create the camera and set it's position
-        camera = new OrthographicCamera(width * 0.2f, height * 0.2f);
+        camera = new OrthographicCamera(width, height);
         camera.position.set(width * 0.5f, height * 0.5f, 0);
         camera.update();
 
@@ -96,10 +96,9 @@ public class GameScreen extends ParentScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 
         Vector2 pos = player.getPosition();
-        //System.out.print(pos.x);
-        //System.out.print("   ");
-        //System.out.print(pos.y);
-        //System.out.println();
+        
+//        if(pos.x < 50)
+//        	player.setPosition(new Vector2(1250, pos.y));
 
         camera.position.set(pos.x, pos.y, 0);
         camera.update();
