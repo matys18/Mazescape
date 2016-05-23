@@ -5,10 +5,10 @@ import com.mataskaairaitis.mazescape.Mazescape;
 import com.mataskaairaitis.mazescape.input.*;
 
 /**
- * Abstract Screen class, which will combine common elements in
+ * Abstract Screen class, which combines common elements in
  * Screen subclasses, to avoid code duplication.
- * "ParentScreen" name can be changed - not the best name.
- * @author jarl
+ * @author Jarl Silvén
+ * @version 23/05/2016
  */
 public abstract class ParentScreen implements Screen {
 	
@@ -31,8 +31,17 @@ public abstract class ParentScreen implements Screen {
 		width = 1280;
 		height = 720;
 	}
-	
+
+	/**
+	 * Get the main game state
+	 * @return game
+	 */
 	public Mazescape getGame() { return game; }
+	
+	/**
+	 * Get the InputReceiver currently in control of screen
+	 * @return controller
+	 */
 	public InputReceiver getControl() { return control; }
 
 	/**

@@ -1,6 +1,5 @@
 package com.mataskaairaitis.mazescape.screens;
 
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,6 +14,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.mataskaairaitis.mazescape.Mazescape;
 import com.mataskaairaitis.mazescape.input.MenuControl;
 
+/**
+ * The starting Screen, holds objects that can be
+ * highlighted anctivated, along with animations and
+ * game title.
+ * @author Jarl Silvén
+ * @version 23/05/2016
+ */
 public class MenuScreen extends ParentScreen {
 
 	SpriteBatch batch;
@@ -23,6 +29,10 @@ public class MenuScreen extends ParentScreen {
 	Label[] labels;
 	OrthographicCamera camera;
 	
+	/**
+	 * Constructs a new MenuScreen
+	 * @param game  The Game of which this Screen is a part of
+	 */
 	public MenuScreen(Mazescape game) {
 		super(game, MenuControl.class);
 
@@ -68,6 +78,10 @@ public class MenuScreen extends ParentScreen {
 		labels[0].setColor(Color.ORANGE);
 	}
 
+	/**
+	 * Renders the menu buttons, title and animations
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void render(float delta) {
 		Gdx.gl.glClearColor(0, 0, 0, 1); // Sets background to black
@@ -81,15 +95,26 @@ public class MenuScreen extends ParentScreen {
 		batch.end();
 	}	
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void show() {
 		super.show();
-		Gdx.graphics.setContinuousRendering(true);
+		Gdx.graphics.setContinuousRendering(false);
 		checkLabelState();
 	}
 	
+	/**
+	 * Get the button item array of the menu. 
+	 * @return array of buttons
+	 */
 	public Label[] getLabels() { return labels; }
 	
+	/**
+	 * Check the current state of the game, and
+	 * disable buttons depending it.
+	 */
 	private void checkLabelState() {
 		if(game.getGameScreen() == null)
 			labels[1].setColor(Color.DARK_GRAY);
