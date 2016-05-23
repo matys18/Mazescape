@@ -61,7 +61,7 @@ public class CircleModel {
     
     /**
      * Teleports the player to new position
-     * @param New x,y position of the player
+     * @param v  New x,y position of the player
      */
     public void setPosition(Vector2 v) {
     	circleBody.setTransform(v, 0);
