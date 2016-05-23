@@ -4,7 +4,14 @@ A 2d maze game where you try to escape the dark.
 
 ![Teaser image](teaser.png)
 
-##### How to build the project
+##### How to run the game
+
+* Download the executable here. (Coming soon)
+* Use arrow keys to move around and enter key to select menu items.
+
+##### How to build the project from source
+
+The project is written in Java and uses the Gradle build system.
 
 1. Clone the repo
 2. Cd into ``/desktop``
