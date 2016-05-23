@@ -28,7 +28,7 @@ import com.mataskaairaitis.mazescape.misc.*;
 /**
  * The Screen that represents the actual misc.
  * @author Matas Kairaitis
- * @version 2016-06-19
+ * @version 2016-05-19
  */
 public class GameScreen extends ParentScreen {
 
@@ -41,11 +41,11 @@ public class GameScreen extends ParentScreen {
     Music ambientMusic;
 
     PlayerModel player;
+    CircleModel goal;
     LevelModel level;
-    
-    public PlayerModel getPlayer() { return player; }
 
-    PointLight goal;
+    boolean win;
+    boolean gameOver;
 
     /**
      * Constructs a new GameScreen.
@@ -70,8 +70,6 @@ public class GameScreen extends ParentScreen {
         // Create the box2d world
         world = new World(new Vector2(0, 0), true);
 
-        world.setContactListener(new CollisionDetector());
-
         // Lighting settings
         rayHandler = new RayHandler(world);
         rayHandler.setCombinedMatrix(camera.combined);
@@ -79,7 +77,8 @@ public class GameScreen extends ParentScreen {
         // Create a player instance
         player = new PlayerModel(new Vector2(510f, 270f), 6f, world, rayHandler, Color.ORANGE);
 
-        new LightableCircleModel(new Vector2(1110f, 458f), 3f, world, rayHandler, Color.WHITE, 3f, 50f);
+        // Creates the goal
+        goal = new CircleModel(new Vector2(1110f, 458f), 5f, world);
 
         // Load obsticles for this level
         level = new Level1(world, width, height);
@@ -89,6 +88,9 @@ public class GameScreen extends ParentScreen {
         ambientMusic.setVolume(1f);
         ambientMusic.setLooping(true);
         ambientMusic.play();
+
+        // Creates collision listener
+        world.setContactListener(new CollisionDetector(this));
     }
 
     /**
@@ -128,6 +130,11 @@ public class GameScreen extends ParentScreen {
             		wall.getHeight() * 2f);
         }
 
+        // Draw the goal
+        shapes.setColor(Color.WHITE);
+        Vector2 goalPos = goal.getPosition();
+        shapes.circle(goalPos.x, goalPos.y, goal.getRadius(), 1000);
+
         shapes.end();
 
         // Player lighting
@@ -142,7 +149,37 @@ public class GameScreen extends ParentScreen {
 
         // Log the fps
         fpsLogger.log();
+
+        // If the game is over, draws text on screen
+        if (win) win();
+        if (gameOver) loose();
     }
+
+    /**
+     * Draws a message on the screen indicating that the player has won.
+     */
+    public void win() {
+        System.out.println("Yay you won");
+    }
+
+    /**
+     * Draws a message on the screen indicating that the player has lost.
+     */
+    public void loose() {
+        System.out.println("The end");
+    }
+
+    /**
+     * Getter for the player.
+     * @return Model representing the player
+     */
+    public PlayerModel getPlayer() { return player; }
+
+    /**
+     * Getter for the goal.
+     * @return Model representing the goal
+     */
+    public CircleModel getGoal() { return goal; }
 
     /**
      * {@inheritDoc}

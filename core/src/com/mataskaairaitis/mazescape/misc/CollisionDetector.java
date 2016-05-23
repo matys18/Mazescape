@@ -4,23 +4,31 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.mataskaairaitis.mazescape.screens.GameScreen;
 
 import java.util.Random;
 
 /**
- * Created by mataskairaitis on 18/05/16.
+ * Listens for collisions between objects and performs actions based on
+ * what objects are colliding.
+ *
+ * @author Matas Kairaitis
+ * @version 2016-05-23
  */
 public class CollisionDetector implements ContactListener {
 
     Random r;
     Array<Sound> collisionSounds;
     Sound activeSound;
+    GameScreen game;
 
     /**
      * Constructs a new CollisionDetector that contains
      * collision listeners. Loads collision audio files.
      */
-    public CollisionDetector() {
+    public CollisionDetector(GameScreen game) {
+        this.game = game;
+
         r = new Random();
 
         collisionSounds = new Array(new Sound[]{
@@ -44,12 +52,19 @@ public class CollisionDetector implements ContactListener {
      */
     @Override
     public void beginContact(Contact contact) {
-        activeSound = collisionSounds.get(r.nextInt(collisionSounds.size));
-        activeSound.play(0.1f);
-
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
-        Gdx.app.log("beginContact", "between " + fixtureA.toString() + " and " + fixtureB.toString());
+
+        Fixture player = game.getPlayer().getFixture();
+        Fixture goal = game.getGoal().getFixture();
+
+        if ((fixtureA.equals(player) && fixtureB.equals(goal)) ||
+                (fixtureB.equals(player) && fixtureA.equals(goal))) {
+            game.dispose();
+        } else {
+            activeSound = collisionSounds.get(r.nextInt(collisionSounds.size));
+            activeSound.play(0.1f);
+        }
     }
 
     /**

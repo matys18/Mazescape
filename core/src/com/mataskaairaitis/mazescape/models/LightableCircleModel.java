@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * Creates a lightable circle.
  * @author Matas Kairaitis
- * @version 2016-06-20
+ * @version 2016-05-20
  */
 public class LightableCircleModel extends CircleModel {
 

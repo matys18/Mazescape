@@ -11,7 +11,7 @@ import com.badlogic.gdx.physics.box2d.*;
 /**
  * The model that represents the player in the misc.
  * @author Matas Kairaitis
- * @version 2016-06-19
+ * @version 2016-05-19
  */
 public class PlayerModel extends LightableCircleModel {
 

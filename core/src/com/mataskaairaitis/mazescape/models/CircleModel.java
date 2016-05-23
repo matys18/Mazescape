@@ -6,7 +6,7 @@ import com.badlogic.gdx.physics.box2d.*;
 /**
  * Model representing a box2d circle.
  * @author Matas Kairaitis
- * @version 2016-06-20
+ * @version 2016-05-20
  */
 public class CircleModel {
 
@@ -89,6 +89,14 @@ public class CircleModel {
      */
     public void setRadius(float radius) {
         circleBody.getFixtureList().get(0).getShape().setRadius(radius);
+    }
+
+    /**
+     * Gets the first fixture attached to this body.
+     * @return  The first fixture attached
+     */
+    public Fixture getFixture() {
+        return circleBody.getFixtureList().get(0);
     }
 
 }
