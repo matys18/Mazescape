@@ -60,7 +60,7 @@ public class CollisionDetector implements ContactListener {
 
         if ((fixtureA.equals(player) && fixtureB.equals(goal)) ||
                 (fixtureB.equals(player) && fixtureA.equals(goal))) {
-            game.dispose();
+            game.setWin(true);
         } else {
             activeSound = collisionSounds.get(r.nextInt(collisionSounds.size));
             activeSound.play(0.1f);

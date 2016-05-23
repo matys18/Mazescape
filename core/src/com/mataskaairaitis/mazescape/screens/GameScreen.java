@@ -169,6 +169,14 @@ public class GameScreen extends ParentScreen {
         System.out.println("The end");
     }
 
+    public void setWin(boolean w) {
+        win = w;
+    }
+
+    public void setGameOver(boolean w) {
+        gameOver = w;
+    }
+
     /**
      * Getter for the player.
      * @return Model representing the player
