@@ -29,14 +29,14 @@ public class MenuControl implements InputReceiver {
 	private int moveUp(int steps) {
 		int length = screen.getLabels().length;
 		int next = (highlight + length - steps) % length;
-		if(screen.getLabels()[next].getColor().equals(Color.LIGHT_GRAY))
+		if(screen.getLabels()[next].getColor().equals(Color.DARK_GRAY))
 			return moveUp(steps + 1);
 		return next;
 	}
 	
 	private int moveDown(int steps) {
 		int next = (highlight + steps) % screen.getLabels().length;
-		if(screen.getLabels()[next].getColor().equals(Color.LIGHT_GRAY))
+		if(screen.getLabels()[next].getColor().equals(Color.DARK_GRAY))
 			return moveDown(steps + 1);
 		return next;
 	}
@@ -65,8 +65,6 @@ public class MenuControl implements InputReceiver {
 			screen.getGame().setScreen(screen.getGame().getGameScreen());
 			break;
 		case 2:
-			break;
-		case 3:
 			Gdx.app.exit();
 		}
 	}
