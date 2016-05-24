@@ -42,8 +42,8 @@ public class MenuScreen extends ParentScreen {
 
 		batch = new SpriteBatch();
 		batch.setProjectionMatrix(camera.combined);
-		image = new Sprite(new Texture(Gdx.files.internal("images/skellington.gif")));
-		image.setPosition(100, 50);
+//		image = new Sprite(new Texture(Gdx.files.internal("images/skellington.gif")));
+//		image.setPosition(100, 50);
 		
 		FreeTypeFontGenerator titleGen = new FreeTypeFontGenerator(Gdx.files.internal("fonts/punk.ttf"));
 		FreeTypeFontParameter titlePar = new FreeTypeFontParameter();
@@ -88,7 +88,7 @@ public class MenuScreen extends ParentScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 		batch.begin();
 		title.draw(batch, 1);
-		image.draw(batch);
+//		image.draw(batch);
 		for(Label label : labels) {
 			label.draw(batch, 1);
 		}
