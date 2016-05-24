@@ -31,12 +31,6 @@ public class LevelModel {
         this.thickness = thickness;
 
         obstacles = new Array<WallModel>();
-
-        // Generate bounding walls
-        obstacles.add(new WallModel(10f, 0f, 10f, height, world));
-        obstacles.add(new WallModel(width - 10f, 0f, 10f, height, world));
-        obstacles.add(new WallModel(0f, 0f, width, 10f, world));
-        obstacles.add(new WallModel(0f, height - 10f, width, 10f, world));
     }
     
     /**

@@ -11,8 +11,8 @@ import com.badlogic.gdx.InputProcessor;
  * Class which listens for user input, and sends the input to be
  * interpreted by an InputReceiver.
  * 
- * @author jarl
- * @version 1
+ * @author Jarl Silvén
+ * @version 23/05/2016
  */
 public class UserInput implements InputProcessor {
 
@@ -47,15 +47,16 @@ public class UserInput implements InputProcessor {
 		catch (NoSuchMethodException noMethod) {}
 		// invTarget if something wrong happens in invoked method.
 		catch (InvocationTargetException invTarget) {
-			System.out.println(invTarget.getCause());
+			System.out.println("Error when calling method: " + invTarget.getCause());
 		}
-		catch (Exception e) {System.out.println(e);}
+		catch (Exception e) {System.out.println("Error on call" + e);}
 	}
 	
 	/**
 	 * Called each time a key is pressed, appending the string "keyPressed"
 	 * to the name of the key, and runs it on the InputReceiver class, if
 	 * such a method exists.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean keyDown(int keycode) {
@@ -68,6 +69,7 @@ public class UserInput implements InputProcessor {
 	 * Called each time a key is released, appending the string "keyReleased"
 	 * to the name of the key, and runs it on the InputReceiver class, if
 	 * such a method exists.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean keyUp(int keycode) {
@@ -77,7 +79,7 @@ public class UserInput implements InputProcessor {
 	}
 
 	/**
-	 * Unused inherited method from InputProcessor.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean keyTyped(char character) {
@@ -85,7 +87,7 @@ public class UserInput implements InputProcessor {
 	}
 
 	/**
-	 * Unused inherited method from InputProcessor.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -93,7 +95,7 @@ public class UserInput implements InputProcessor {
 	}
 
 	/**
-	 * Unused inherited method from InputProcessor.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
@@ -101,7 +103,7 @@ public class UserInput implements InputProcessor {
 	}
 
 	/**
-	 * Unused inherited method from InputProcessor.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
@@ -109,7 +111,7 @@ public class UserInput implements InputProcessor {
 	}
 
 	/**
-	 * Unused inherited method from InputProcessor.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
@@ -117,7 +119,7 @@ public class UserInput implements InputProcessor {
 	}
 
 	/**
-	 * Unused inherited method from InputProcessor.
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean scrolled(int amount) {

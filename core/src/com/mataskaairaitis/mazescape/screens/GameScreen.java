@@ -1,5 +1,7 @@
 package com.mataskaairaitis.mazescape.screens;
 
+import java.util.HashMap;
+
 import box2dLight.PointLight;
 import box2dLight.RayHandler;
 
@@ -9,9 +11,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.utils.Array;
 import com.mataskaairaitis.mazescape.Mazescape;
 import com.mataskaairaitis.mazescape.input.*;
@@ -22,7 +28,7 @@ import com.mataskaairaitis.mazescape.misc.*;
 /**
  * The Screen that represents the actual misc.
  * @author Matas Kairaitis
- * @version 2016-06-19
+ * @version 2016-05-19
  */
 public class GameScreen extends ParentScreen {
 
@@ -35,11 +41,10 @@ public class GameScreen extends ParentScreen {
     Music ambientMusic;
 
     PlayerModel player;
+    CircleModel goal;
     LevelModel level;
-    
-    public PlayerModel getPlayer() { return player; }
 
-    PointLight goal;
+    float timer;
 
     /**
      * Constructs a new GameScreen.
@@ -48,8 +53,11 @@ public class GameScreen extends ParentScreen {
     public GameScreen(Mazescape game) {
     	super(game, GameControl.class);
 
+        // Set the game timer to 3 minutes
+        timer = 3f * 60f * 60f;
+
         // Create the camera and set it's position
-        camera = new OrthographicCamera(width, height);
+        camera = new OrthographicCamera(width * 0.2f, height * 0.2f);
         camera.position.set(width * 0.5f, height * 0.5f, 0);
         camera.update();
 
@@ -60,11 +68,9 @@ public class GameScreen extends ParentScreen {
         // Fps logger and box2d renderer
         renderer = new Box2DDebugRenderer();
         fpsLogger = new FPSLogger();
-
+        
         // Create the box2d world
         world = new World(new Vector2(0, 0), true);
-
-        world.setContactListener(new CollisionDetector());
 
         // Lighting settings
         rayHandler = new RayHandler(world);
@@ -73,7 +79,8 @@ public class GameScreen extends ParentScreen {
         // Create a player instance
         player = new PlayerModel(new Vector2(510f, 270f), 6f, world, rayHandler, Color.ORANGE);
 
-        new LightableCircleModel(new Vector2(1110f, 458f), 3f, world, rayHandler, Color.WHITE, 3f, 50f);
+        // Creates the goal
+        goal = new CircleModel(new Vector2(1110f, 458f), 5f, world);
 
         // Load obsticles for this level
         level = new Level1(world, width, height);
@@ -83,6 +90,9 @@ public class GameScreen extends ParentScreen {
         ambientMusic.setVolume(1f);
         ambientMusic.setLooping(true);
         ambientMusic.play();
+
+        // Creates collision listener
+        world.setContactListener(new CollisionDetector(this));
     }
 
     /**
@@ -92,13 +102,24 @@ public class GameScreen extends ParentScreen {
      */
     @Override
     public void render(float delta) {
+        // Decrement the timer
+        timer -= 1;
+
+        if (timer == 0f) loose();
+
         Gdx.gl.glClearColor(0, 0, 0, 1); // Sets background to black
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 
         Vector2 pos = player.getPosition();
         
-//        if(pos.x < 50)
-//        	player.setPosition(new Vector2(1250, pos.y));
+        if(pos.x < 50)
+        	player.setPosition(new Vector2(1230, pos.y));
+        else if(pos.x > 1230)
+        	player.setPosition(new Vector2(50, pos.y));
+        if(pos.y < 40)
+        	player.setPosition(new Vector2(pos.x, 680));
+        else if(pos.y > 680)
+        	player.setPosition(new Vector2(pos.x, 40));
 
         camera.position.set(pos.x, pos.y, 0);
         camera.update();
@@ -109,24 +130,29 @@ public class GameScreen extends ParentScreen {
         shapes.setColor(Color.DARK_GRAY);
 
         // Draw the walls
-        Array<WallModel> obs = level.getObstacles();
-
-        for (int i = 0; i < obs.size; i++) {
-            WallModel wall = obs.get(i);
-            Vector2 wallPos = wall.getPosition();
-            shapes.rect(wallPos.x - wall.getWidth(), wallPos.y - wall.getHeight(), wall.getWidth() * 2, wall.getHeight() * 2f);
+        for (WallModel wall : level.getObstacles()) {
+            shapes.rect(wall.getPosition().x - wall.getWidth(), 
+            		wall.getPosition().y - wall.getHeight(), 
+            		wall.getWidth() * 2, 
+            		wall.getHeight() * 2f);
         }
+
+        // Draw the goal
+        shapes.setColor(Color.WHITE);
+        Vector2 goalPos = goal.getPosition();
+        shapes.circle(goalPos.x, goalPos.y, goal.getRadius(), 1000);
 
         shapes.end();
 
         // Player lighting
-        player.updateLightDistance();
+        player.setLightRadius(timer / 500f, timer / 50f);
+        player.updateLightInterval();
         player.updateLightPosition();
         rayHandler.setCombinedMatrix(camera.combined);
         rayHandler.updateAndRender();
 
         // Render the box2d world
-        renderer.render(world, camera.combined);
+//        renderer.render(world, camera.combined);
         world.step(1/60f, 6, 2);
 
         // Log the fps
@@ -134,11 +160,49 @@ public class GameScreen extends ParentScreen {
     }
 
     /**
+     * Displays the EndScreen with win boolean true.
+     */
+    public void win() {
+    	game.setEndScreen(new EndScreen(getGame(), true));
+    	game.setScreen(game.getEndScreen());
+    }
+
+    /**
+     * Displays the EndScreen with win boolean false.
+     */
+    public void loose() {
+    	game.setEndScreen(new EndScreen(getGame(), false));
+    	game.setScreen(game.getEndScreen());
+    }
+
+    /**
+     * Getter for the player.
+     * @return Model representing the player
+     */
+    public PlayerModel getPlayer() { return player; }
+
+    /**
+     * Getter for the goal.
+     * @return Model representing the goal
+     */
+    public CircleModel getGoal() { return goal; }
+
+    /**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void hide() {
+		super.hide();
+		pause();
+	}
+    
+    /**
      * {@inheritDoc}
      */
     @Override
     public void show() {
     	super.show();
+    	resume();
     	Gdx.graphics.setContinuousRendering(true);
     }
 

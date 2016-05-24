@@ -9,7 +9,7 @@ import com.badlogic.gdx.physics.box2d.World;
 /**
  * Creates a lightable circle.
  * @author Matas Kairaitis
- * @version 2016-06-20
+ * @version 2016-05-20
  */
 public class LightableCircleModel extends CircleModel {
 
@@ -47,6 +47,16 @@ public class LightableCircleModel extends CircleModel {
     }
 
     /**
+     * Sets the new light radius.
+     * @param lightRadius  New light radius
+     * @param ambientRadius  New ambient light radius
+     */
+    public void setLightRadius(float lightRadius, float ambientRadius)  {
+        lightDistance = lightRadius;
+        ambientDistance = ambientRadius;
+    }
+
+    /**
      * Updates the position of the light objects attached to the player
      * based on the position of the player.
      */
@@ -60,8 +70,9 @@ public class LightableCircleModel extends CircleModel {
      * Updates the distance of the light objects attached to the player
      * based on the position of the player.
      */
-    public void updateLightDistance() {
+    public void updateLightInterval() {
         lightInterval  += 0.1f;
+        light.setDistance(lightDistance);
         ambientLight.setDistance((float)Math.sin(lightInterval) * 10f + ambientDistance);
     }
 

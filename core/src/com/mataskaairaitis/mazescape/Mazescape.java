@@ -29,11 +29,14 @@ public class Mazescape extends Game {
 
 	GameScreen gameScreen;
 	MenuScreen menuScreen;
+	EndScreen endScreen;
 	UserInput userInput;
 
 	public GameScreen getGameScreen() { return gameScreen; }
 	public void setGameScreen(GameScreen gameScreen) { this.gameScreen = gameScreen; }
 	public MenuScreen getMenuScreen() { return menuScreen; }
+	public EndScreen getEndScreen() { return endScreen; }
+	public void setEndScreen(EndScreen endScreen) { this.endScreen = endScreen; }
 	public UserInput getUserInput() { return userInput; }
 	
 	/**

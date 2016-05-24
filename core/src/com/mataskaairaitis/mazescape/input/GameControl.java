@@ -3,13 +3,13 @@ package com.mataskaairaitis.mazescape.input;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.math.Vector2;
-
 import com.mataskaairaitis.mazescape.screens.*;
 
 /**
  * GameControl class which allows the user to control a player object through
  * the arrow keys, and return to the Menu screen by pressing escape.
- * @author jarl
+ * @author Jarl Silvén
+ * @version 23/05/2016
  */
 public class GameControl implements InputReceiver {
 
@@ -100,37 +100,67 @@ public class GameControl implements InputReceiver {
 		}
 	}
 	
+	/**
+	 * Initialize upward movement when pressing up arrow key
+	 */
 	public void keyPressedUp() {
 		startTurn(Direction.UP);
 	}
 	
+	/**
+	 * Stop upward movement when releasing up arrow key
+	 */
 	public void keyReleasedUp() {
 		stopTurn(Direction.UP);
 	}
 	
+	/**
+	 * Initialize downward movement when pressing down arrow key
+	 */
 	public void keyPressedDown() {
 		startTurn(Direction.DOWN);
 	}
 	
+	/**
+	 * Stop downward movement when releasing down arrow key
+	 */
 	public void keyReleasedDown() {
 		stopTurn(Direction.DOWN);
 	}
 
+	/**
+	 * Initialize rightward movement when pressing right arrow key
+	 */
 	public void keyPressedRight() {
 		startTurn(Direction.RIGHT);
 	}
 	
+	/**
+	 * Stop rightward movement when releasing rightarrow key
+	 */
 	public void keyReleasedRight() {
 		stopTurn(Direction.RIGHT);
 	}
+	
+	/**
+	 * Initialize leftward movement when pressing left arrow key
+	 */
 	public void keyPressedLeft() {
 		startTurn(Direction.LEFT);
 	}
 	
+	/**
+	 * Stop leftward movement when releasing left arrow key
+	 */
 	public void keyReleasedLeft() {
 		stopTurn(Direction.LEFT);
 	}
 	
+	/**
+	 * Set player speed and direction to zero so that upon resuming,
+	 * the player stands still. 
+	 * Then switch to Menu screen, and highlight the Resume Game button.
+	 */
 	public void keyPressedEscape() {
 		screen.getPlayer().setVelocity(new Vector2());
 		directionStack = new LinkedList<Direction>();

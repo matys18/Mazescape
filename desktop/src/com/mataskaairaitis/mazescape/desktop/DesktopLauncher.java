@@ -1,5 +1,11 @@
 package com.mataskaairaitis.mazescape.desktop;
 
+/**
+ * Launches the game on a desktop computer.
+ * @author Matas Kairaitis, Jarl Silven
+ * @version 2016-05-26
+ */
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.mataskaairaitis.mazescape.Mazescape;;
