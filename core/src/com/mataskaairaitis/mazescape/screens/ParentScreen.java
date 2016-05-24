@@ -27,7 +27,7 @@ public abstract class ParentScreen implements Screen {
 		try {
 			control = (InputReceiver)controlClass.getConstructor(getClass())
 					.newInstance(getClass().cast(this));
-		} catch (Exception e) {System.out.println(e);};
+		} catch (Exception e) {System.out.println("Error at screen creation: " + e);};
 		width = 1280;
 		height = 720;
 	}

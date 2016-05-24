@@ -47,9 +47,9 @@ public class UserInput implements InputProcessor {
 		catch (NoSuchMethodException noMethod) {}
 		// invTarget if something wrong happens in invoked method.
 		catch (InvocationTargetException invTarget) {
-			System.out.println(invTarget.getCause());
+			System.out.println("Error when calling method: " + invTarget.getCause());
 		}
-		catch (Exception e) {System.out.println(e);}
+		catch (Exception e) {System.out.println("Error on call" + e);}
 	}
 	
 	/**
