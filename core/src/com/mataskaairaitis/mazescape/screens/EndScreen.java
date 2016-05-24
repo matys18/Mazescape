@@ -26,7 +26,7 @@ public class EndScreen extends ParentScreen {
 	Label[] lossLabels;
 	Label textLabel;
 	
-	float fade;
+	float fadeIn, fadeOut;
 	
 	/**
 	 * Screen constructor making the text objects and
@@ -37,7 +37,8 @@ public class EndScreen extends ParentScreen {
 	public EndScreen(Mazescape game, boolean win) {
 		super(game, EndControl.class);
 		this.win = win;
-		fade = 0;
+		fadeIn = 0;
+		fadeOut = 0;
 		
 		FreeTypeFontGenerator winGen = new FreeTypeFontGenerator(Gdx.files.internal("fonts/autumn.ttf"));
 		FreeTypeFontParameter winPar = new FreeTypeFontParameter();
@@ -93,29 +94,34 @@ public class EndScreen extends ParentScreen {
 	@Override
 	public void render(float delta) {
 		if(win) {
-			Gdx.gl.glClearColor(1, 1, 1, 1); // Sets background to white
+			Gdx.gl.glClearColor(fadeOut, fadeOut, fadeOut, 1); // Sets background to white
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
-			batch.begin();
-			for(Label label : winLabels) {
-				label.draw(batch, fade);
+			if(fadeOut >= 1) {
+				batch.begin();
+				for(Label label : winLabels) {
+					label.draw(batch, fadeIn);
+				}
+				if(fadeIn >= 1)
+					textLabel.draw(batch, 1);
+				batch.end();
 			}
-			if(fade >= 1)
-				textLabel.draw(batch, 1);
-			batch.end();
+			if(fadeOut < 1)
+				fadeOut += 0.01;
+			else if(fadeIn < 1)
+				fadeIn += 0.01;
 		}
 		else {
 			Gdx.gl.glClearColor(0, 0, 0, 1); // Sets background to black
 			Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 			 batch.begin();
 			for(Label label : lossLabels) {
-				label.draw(batch, fade);
+				label.draw(batch, fadeIn);
 			}
-			if(fade >= 1)
+			if(fadeIn >= 1)
 				textLabel.draw(batch, 1);
 			batch.end();
+			fadeIn += 0.01;
 		}
-		if(fade < 1)
-			fade += 0.01;
 	}
 	
 	/**
