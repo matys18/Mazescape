@@ -3,6 +3,7 @@ package com.mataskaairaitis.mazescape.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -25,6 +26,8 @@ public class EndScreen extends ParentScreen {
 	Label[] winLabels;
 	Label[] lossLabels;
 	Label textLabel;
+
+	OrthographicCamera camera;
 	
 	float fadeIn, fadeOut;
 	
@@ -39,6 +42,10 @@ public class EndScreen extends ParentScreen {
 		this.win = win;
 		fadeIn = 0;
 		fadeOut = 0;
+
+		camera = new OrthographicCamera(width, height);
+		camera.position.set(width * 0.5f, height * 0.5f, 0);
+		camera.update();
 		
 		FreeTypeFontGenerator winGen = new FreeTypeFontGenerator(Gdx.files.internal("fonts/autumn.ttf"));
 		FreeTypeFontParameter winPar = new FreeTypeFontParameter();
@@ -66,6 +73,7 @@ public class EndScreen extends ParentScreen {
 		textGen.dispose();
 		
 		batch = new SpriteBatch();
+		batch.setProjectionMatrix(camera.combined);
 		
 		winLabels = new Label[] {
 			new Label("Together", new Label.LabelStyle(bigWin, null)),
