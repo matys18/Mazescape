@@ -1,5 +1,6 @@
 package com.mataskaairaitis.mazescape.screens;
 
+import box2dLight.RayHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,9 +11,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.mataskaairaitis.mazescape.Mazescape;
 import com.mataskaairaitis.mazescape.input.MenuControl;
+import com.mataskaairaitis.mazescape.models.LightableCircleModel;
+import com.mataskaairaitis.mazescape.models.PlayerModel;
 
 /**
  * The starting Screen, holds objects that can be
@@ -28,7 +33,10 @@ public class MenuScreen extends ParentScreen {
 	Sprite image;
 	Label[] labels;
 	OrthographicCamera camera;
-	
+	RayHandler rayHandler;
+	World world;
+	LightableCircleModel blob;
+
 	/**
 	 * Constructs a new MenuScreen
 	 * @param game  The Game of which this Screen is a part of
@@ -76,6 +84,11 @@ public class MenuScreen extends ParentScreen {
 		labels[1].setPosition(line, 300);
 		labels[2].setPosition(line, 200);
 		labels[0].setColor(Color.ORANGE);
+
+		world = new World(new Vector2(0, 0), true);
+		rayHandler = new RayHandler(world);
+		rayHandler.setCombinedMatrix(camera.combined);
+		blob = new LightableCircleModel(new Vector2(100f, height * 0.5f - 3f), 6f, world, rayHandler, Color.ORANGE, 50f, 2500f);
 	}
 
 	/**
@@ -93,6 +106,15 @@ public class MenuScreen extends ParentScreen {
 			label.draw(batch, 1);
 		}
 		batch.end();
+
+		blob.updateLightInterval();
+		blob.updateLightPosition();
+		rayHandler.setCombinedMatrix(camera.combined);
+		rayHandler.updateAndRender();
+
+		camera.update();
+
+		world.step(1/60f, 6, 2);
 	}	
 	
 	/**
