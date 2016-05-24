@@ -44,12 +44,17 @@ public class GameScreen extends ParentScreen {
     CircleModel goal;
     LevelModel level;
 
+    float timer;
+
     /**
      * Constructs a new GameScreen.
      * @param game  The Game of which this Screen is a part of
      */
     public GameScreen(Mazescape game) {
     	super(game, GameControl.class);
+
+        // Set the game timer to 3 minutes
+        timer = 3f * 60f * 60f;
 
         // Create the camera and set it's position
         camera = new OrthographicCamera(width * 0.2f, height * 0.2f);
@@ -97,6 +102,11 @@ public class GameScreen extends ParentScreen {
      */
     @Override
     public void render(float delta) {
+        // Decrement the timer
+        timer -= 1;
+
+        if (timer == 0f) loose();
+
         Gdx.gl.glClearColor(0, 0, 0, 1); // Sets background to black
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT); // Clears the screen
 
@@ -135,7 +145,8 @@ public class GameScreen extends ParentScreen {
         shapes.end();
 
         // Player lighting
-        player.updateLightDistance();
+        player.setLightRadius(timer / 500f, timer / 50f);
+        player.updateLightInterval();
         player.updateLightPosition();
         rayHandler.setCombinedMatrix(camera.combined);
         rayHandler.updateAndRender();
