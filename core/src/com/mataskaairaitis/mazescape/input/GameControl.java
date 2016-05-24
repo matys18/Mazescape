@@ -3,7 +3,6 @@ package com.mataskaairaitis.mazescape.input;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.math.Vector2;
-
 import com.mataskaairaitis.mazescape.screens.*;
 
 /**

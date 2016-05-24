@@ -44,9 +44,6 @@ public class GameScreen extends ParentScreen {
     CircleModel goal;
     LevelModel level;
 
-    boolean win;
-    boolean gameOver;
-
     /**
      * Constructs a new GameScreen.
      * @param game  The Game of which this Screen is a part of
@@ -149,33 +146,22 @@ public class GameScreen extends ParentScreen {
 
         // Log the fps
         fpsLogger.log();
-
-        // If the game is over, draws text on screen
-        if (win) win();
-        if (gameOver) loose();
     }
 
     /**
-     * Draws a message on the screen indicating that the player has won.
+     * Displays the EndScreen with win boolean true.
      */
     public void win() {
-        System.out.println("Yay you won");
+    	game.setEndScreen(new EndScreen(getGame(), true));
+    	game.setScreen(game.getEndScreen());
     }
 
     /**
-     * Draws a message on the screen indicating that the player has lost.
+     * Displays the EndScreen with win boolean false.
      */
     public void loose() {
-        System.out.println("The end");
-    }
-
-
-    public void setWin(boolean w) {
-        win = w;
-    }
-
-    public void setGameOver(boolean w) {
-        gameOver = w;
+    	game.setEndScreen(new EndScreen(getGame(), false));
+    	game.setScreen(game.getEndScreen());
     }
 
     /**
@@ -191,11 +177,21 @@ public class GameScreen extends ParentScreen {
     public CircleModel getGoal() { return goal; }
 
     /**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void hide() {
+		super.hide();
+		pause();
+	}
+    
+    /**
      * {@inheritDoc}
      */
     @Override
     public void show() {
     	super.show();
+    	resume();
     	Gdx.graphics.setContinuousRendering(true);
     }
 
