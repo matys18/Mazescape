@@ -6,7 +6,7 @@ A 2d maze game where you try to escape the dark.
 
 ##### How to run the game
 
-* Download the executable here. (Coming soon)
+* Download the executable [here](https://github.com/matys18/Mazescape/releases).
 * Use arrow keys to move around and enter key to select menu items.
 
 ##### How to build the project from source
